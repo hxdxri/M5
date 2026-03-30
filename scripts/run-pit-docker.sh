@@ -3,27 +3,51 @@ set -eu
 
 ROOT=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 RUN_NAME=${1:-baseline}
+USE_SUBSET=${PIT_USE_SUBSET:-false}
+WITH_HISTORY=${PIT_WITH_HISTORY:-false}
+HISTORY_SUFFIX="$RUN_NAME-nohistory-$$.bin"
 
 if [ "$#" -gt 0 ]; then
   shift
 fi
 
 PROFILE=milestone5-pit
-if [ "${PIT_USE_SUBSET:-false}" = "true" ]; then
+
+if [ "$RUN_NAME" != "smoke" ] && [ "$USE_SUBSET" = "true" ]; then
+  echo "PIT_USE_SUBSET=true is only allowed for smoke runs." >&2
+  echo "Use 'scripts/run-pit-docker.sh baseline' for the non-subset baseline run." >&2
+  exit 1
+fi
+
+if [ "$RUN_NAME" = "baseline" ] && [ "$WITH_HISTORY" = "true" ]; then
+  echo "PIT_WITH_HISTORY=true is not allowed for baseline runs." >&2
+  echo "Baseline runs must execute without PIT history reuse." >&2
+  exit 1
+fi
+
+if [ "$USE_SUBSET" = "true" ]; then
   PROFILE="$PROFILE,gson-subset"
 fi
 
 REPORT_DIR="$ROOT/artifacts/pit/$RUN_NAME"
 HISTORY_DIR="$ROOT/artifacts/pit/history"
-HISTORY_FILE="$HISTORY_DIR/history.bin"
 LOG_FILE="$ROOT/logs/pit-$RUN_NAME-docker.log"
 
 mkdir -p "$REPORT_DIR" "$HISTORY_DIR" "$ROOT/logs"
+
+HISTORY_FILE="/workspace/artifacts/pit/history/$HISTORY_SUFFIX"
+if [ "$WITH_HISTORY" = "true" ]; then
+  HISTORY_FILE="/workspace/artifacts/pit/history/history.bin"
+else
+  trap 'rm -f "$ROOT/artifacts/pit/history/$HISTORY_SUFFIX"' EXIT INT TERM
+fi
+
+echo "Running PIT: run=$RUN_NAME profiles=$PROFILE withHistory=$WITH_HISTORY"
 
 "$ROOT/scripts/mvn-gson-docker.sh" \
   -P "$PROFILE" \
   org.pitest:pitest-maven:mutationCoverage \
   -Dpitest.reports.directory=/workspace/artifacts/pit/"$RUN_NAME" \
-  -Dpitest.history.file=/workspace/artifacts/pit/history/history.bin \
-  -Dpitest.withHistory="${PIT_WITH_HISTORY:-false}" \
+  -Dpitest.history.file="$HISTORY_FILE" \
+  -Dpitest.withHistory="$WITH_HISTORY" \
   "$@" | tee "$LOG_FILE"

@@ -1,0 +1,113 @@
+[INFO] Scanning for projects...
+[INFO] Inspecting build with total of 1 modules
+[INFO] Installing Central Publishing features
+[INFO] 
+[INFO] ---------------------< com.google.code.gson:gson >----------------------
+[INFO] Building Gson 2.13.3-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- pitest:1.15.3:mutationCoverage (default-cli) @ gson ---
+[INFO] Root dir is : /Users/haidari/Desktop/M5/gson/gson
+[INFO] Found plugin : Default csv report plugin
+[INFO] Found plugin : Default xml report plugin
+[INFO] Found plugin : Default html report plugin
+[INFO] Found plugin : Static initializer code detector plugin
+[INFO] Found plugin : Excluded annotations plugin
+[INFO] Found plugin : Try with resources filter
+[INFO] Found plugin : Inlined finally block filter plugin
+[INFO] Found plugin : Implicit null check filter
+[INFO] Found plugin : Method reference null check filter
+[INFO] Found plugin : For each loop filter
+[INFO] Found plugin : Enum junk filter
+[INFO] Found plugin : Record junk mutation filter
+[INFO] Found plugin : String switch filter
+[INFO] Found plugin : Assertions filter
+[INFO] Found plugin : Enum switch filter
+[INFO] Found plugin : Logging calls filter
+[INFO] Found plugin : Infinite for loop filter
+[INFO] Found plugin : Long running iterator loop filter
+[INFO] Found plugin : For loop counter filter
+[INFO] Found plugin : Kotlin junk mutations filter
+[INFO] Found plugin : Groovy junk mutations filter
+[INFO] Found plugin : Max mutations per class limit
+[INFO] Found plugin : Equals shortcut equivalent mutant filter
+[INFO] Found plugin : Trivial return vals equivalence filter
+[INFO] Found plugin : Filters mutants with line number <= 1
+[INFO] Found plugin : Division by one equivalent mutant filter
+[INFO] Found plugin : Lombok junk mutations filter
+[INFO] Found plugin : Mutant export plugin
+[INFO] Found plugin : Auto add java.awt.headless=true to keep keyboard focus on Mac OS
+[INFO] Found plugin : Auto set number of threads based on machine
+[INFO] Found plugin : Default build verifier
+[INFO] Found plugin : Detect missing JUnit5 plugin
+[INFO] Found plugin : Detect missing TestNG plugin
+[INFO] Found plugin : Detect missing kotlin plugin
+[INFO] Found plugin : Detect missing spring plugin
+[INFO] Found shared classpath plugin : Default mutation engine
+[INFO] Found shared classpath plugin : JUnit plugin
+[INFO] Available mutators : EXPERIMENTAL_ARGUMENT_PROPAGATION,FALSE_RETURNS,TRUE_RETURNS,CONDITIONALS_BOUNDARY,CONSTRUCTOR_CALLS,EMPTY_RETURNS,INCREMENTS,INLINE_CONSTS,INVERT_NEGS,MATH,NEGATE_CONDITIONALS,NON_VOID_METHOD_CALLS,NULL_RETURNS,PRIMITIVE_RETURNS,REMOVE_CONDITIONALS_EQUAL_IF,REMOVE_CONDITIONALS_EQUAL_ELSE,REMOVE_CONDITIONALS_ORDER_IF,REMOVE_CONDITIONALS_ORDER_ELSE,VOID_METHOD_CALLS,EXPERIMENTAL_BIG_DECIMAL,EXPERIMENTAL_BIG_INTEGER,EXPERIMENTAL_MEMBER_VARIABLE,EXPERIMENTAL_NAKED_RECEIVER,REMOVE_INCREMENTS,EXPERIMENTAL_SWITCH,EXPERIMENTAL_BIG_DECIMAL,EXPERIMENTAL_BIG_INTEGER
+[INFO] Adding org.pitest:pitest to SUT classpath
+[INFO] Mutating from /Users/haidari/Desktop/M5/gson/gson/target/classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.174 s
+[INFO] Finished at: 2026-03-29T18:37:22-06:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.15.3:mutationCoverage (default-cli) on project gson: Execution default-cli of goal org.pitest:pitest-maven:1.15.3:mutationCoverage failed: Operation not permitted
+[ERROR] 
+[ERROR] Please copy and paste the information and the complete stacktrace below when reporting an issue
+[ERROR] VM : OpenJDK 64-Bit Server VM
+[ERROR] Vendor : Oracle Corporation
+[ERROR] Version : 21+35-2513
+[ERROR] Uptime : 3630
+[ERROR] Input -> 
+[ERROR]  1 : --enable-native-access=ALL-UNNAMED
+[ERROR]  2 : --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
+[ERROR]  3 : --add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED
+[ERROR]  4 : --add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED
+[ERROR]  5 : --add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED
+[ERROR]  6 : --add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED
+[ERROR]  7 : --add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED
+[ERROR]  8 : --add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED
+[ERROR]  9 : --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+[ERROR]  10 : --add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED
+[ERROR]  11 : --add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED
+[ERROR]  12 : -Dclassworlds.conf=/opt/homebrew/Cellar/maven/3.9.11/libexec/bin/m2.conf
+[ERROR]  13 : -Dmaven.home=/opt/homebrew/Cellar/maven/3.9.11/libexec
+[ERROR]  14 : -Dlibrary.jansi.path=/opt/homebrew/Cellar/maven/3.9.11/libexec/lib/jansi-native
+[ERROR]  15 : -Dmaven.multiModuleProjectDirectory=/Users/haidari/Desktop/M5/gson
+[ERROR] BootClassPathSupported : false
+[ERROR] 
+[ERROR] 
+[ERROR] Please copy and paste the information and the complete stacktrace below when reporting an issue
+[ERROR] VM : OpenJDK 64-Bit Server VM
+[ERROR] Vendor : Oracle Corporation
+[ERROR] Version : 21+35-2513
+[ERROR] Uptime : 3631
+[ERROR] Input -> 
+[ERROR]  1 : --enable-native-access=ALL-UNNAMED
+[ERROR]  2 : --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
+[ERROR]  3 : --add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED
+[ERROR]  4 : --add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED
+[ERROR]  5 : --add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED
+[ERROR]  6 : --add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED
+[ERROR]  7 : --add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED
+[ERROR]  8 : --add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED
+[ERROR]  9 : --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+[ERROR]  10 : --add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED
+[ERROR]  11 : --add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED
+[ERROR]  12 : -Dclassworlds.conf=/opt/homebrew/Cellar/maven/3.9.11/libexec/bin/m2.conf
+[ERROR]  13 : -Dmaven.home=/opt/homebrew/Cellar/maven/3.9.11/libexec
+[ERROR]  14 : -Dlibrary.jansi.path=/opt/homebrew/Cellar/maven/3.9.11/libexec/lib/jansi-native
+[ERROR]  15 : -Dmaven.multiModuleProjectDirectory=/Users/haidari/Desktop/M5/gson
+[ERROR] BootClassPathSupported : false
+[ERROR] 
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/PluginExecutionException

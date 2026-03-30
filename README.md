@@ -7,7 +7,7 @@ This workspace now contains:
 - the upstream `google/gson` repository as a Git submodule in [`gson`](/Users/haidari/Desktop/M5/gson)
 - a tracked patch for the Gson PIT changes in [`patches/gson-milestone5.patch`](/Users/haidari/Desktop/M5/patches/gson-milestone5.patch)
 - helper scripts in [`scripts`](/Users/haidari/Desktop/M5/scripts)
-- setup notes in [`docs/milestone5-foundation.md`](/Users/haidari/Desktop/M5/docs/M5-Foundation.md)
+- setup notes in [`docs/M5-Foundation.md`](/Users/haidari/Desktop/M5/docs/M5-Foundation.md)
 
 Quick start:
 
@@ -16,9 +16,16 @@ Quick start:
 - Refresh the tracked patch after new Gson edits: `scripts/refresh-gson-patch.sh`
 - Local Maven/JDK path: `scripts/verify-gson.sh`
 - Local PIT smoke check: `PIT_USE_SUBSET=true scripts/run-pit.sh smoke`
+- Local baseline PIT run: `scripts/run-pit.sh baseline`
 - Docker + Java 17 path: `scripts/verify-gson-docker.sh`
 - PIT smoke run in Docker: `PIT_USE_SUBSET=true scripts/run-pit-docker.sh smoke`
 - PIT baseline run in Docker: `scripts/run-pit-docker.sh baseline`
+
+Baseline safeguards:
+
+- `baseline` runs reject `PIT_USE_SUBSET=true`
+- `baseline` runs reject `PIT_WITH_HISTORY=true`
+- the PIT runner prints the active `profiles=` and `withHistory=` settings at startup
 
 Current status:
 

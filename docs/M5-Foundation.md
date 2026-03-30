@@ -95,6 +95,7 @@ Interpretation:
 - Refresh tracked Gson patch: `scripts/refresh-gson-patch.sh`
 - Local host verification: `scripts/verify-gson.sh`
 - Local smoke PIT run: `PIT_USE_SUBSET=true scripts/run-pit.sh smoke`
+- Local baseline PIT run: `scripts/run-pit.sh baseline`
 - Docker verification with Java 17: `scripts/verify-gson-docker.sh`
 - Smoke PIT run: `PIT_USE_SUBSET=true scripts/run-pit-docker.sh smoke`
 - Baseline PIT run: `scripts/run-pit-docker.sh baseline`
@@ -107,4 +108,6 @@ Current PIT-specific note:
 Important note:
 
 - The optional `gson-subset` Maven profile is useful for a fast smoke check only.
-- Do not use the subset profile for the final baseline or report metrics unless your team deliberately decides to justify that narrower compiled test scope.
+- Baseline runs must not use `gson-subset` or `PIT_WITH_HISTORY=true`; the runner scripts now reject both cases explicitly.
+- Non-history PIT runs now use a fresh throwaway history file, so a previous smoke run cannot accidentally make `baseline` look artificially fast.
+- If you previously exported `PIT_USE_SUBSET` or `PIT_WITH_HISTORY` in your shell, either unset them or run the commands in a fresh shell.
