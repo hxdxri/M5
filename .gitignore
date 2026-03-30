@@ -2,5 +2,10 @@
 .m2/
 .m2-docker/
 artifacts/pit/history/
+report/main.aux
+report/main.log
+report/main.out
+report/Makefile
+
 
 TechTitans_Milestone4_report.pdf
