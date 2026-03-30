@@ -1,13 +1,6 @@
 .DS_Store
 .m2/
 .m2-docker/
-artifacts/*
-!artifacts/pit/
-artifacts/pit/*
-!artifacts/pit/README.md
-!artifacts/pit/smoke/
-!artifacts/pit/baseline/
 artifacts/pit/history/
-!artifacts/pit/smoke/**
-!artifacts/pit/baseline/**
+
 TechTitans_Milestone4_report.pdf

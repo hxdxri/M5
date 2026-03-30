@@ -52,9 +52,11 @@ Why this scope:
 
 Approximate size:
 
-- Target production LOC: about `3038` lines
-- Streaming package: `2913` LOC
-- `JsonStreamParser`: `125` LOC
+- Raw target production LOC by source files: about `3038` lines
+- Raw streaming package size: `2913` LOC
+- Raw `JsonStreamParser` size: `125` LOC
+- Effective PIT-mutated scope in the generated baseline/smoke report: `982` LOC across `3` reported source files
+- Effective reported files: `JsonReader`, `JsonWriter`, and `JsonStreamParser`
 - Library module tests available to PIT with `targetTests = com.google.gson.*`: `118` test classes and `4586` executed tests in the baseline Maven run
 
 Initial hypothesis:
@@ -78,6 +80,20 @@ Interpretation:
 
 - The PIT configuration is working end to end on the chosen scope.
 - The selected streaming slice is strong enough for the milestone and already produces useful surviving mutants to analyze later.
+
+## Clarification on the apparent missing classes
+
+- The PIT class filter is working as configured: `targetClasses = com.google.gson.stream.*` plus `com.google.gson.JsonStreamParser`.
+- The report does not list every file matched by the class glob; it lists the files that actually produced reportable mutants.
+- `JsonStreamParser` is reported under package `com.google.gson`, not `com.google.gson.stream`, so the stream-package HTML page shows only `JsonReader` and `JsonWriter`.
+- The total `687` mutants come from only three reported source files: `JsonReader` including its inner helper class `JsonReader$1`, `JsonWriter`, and `JsonStreamParser`.
+- This is why the generated report shows `959/982` line coverage instead of the raw source total of about `3038` lines: PIT reports line coverage only for mutated classes.
+- Focused PIT reruns against the omitted stream files confirmed that `JsonToken`, `JsonScope`, and `MalformedJsonException` produce `0` mutations and `0/0` mutated-class line coverage under the same PIT configuration.
+- `JsonToken` is effectively filtered down to no useful mutants because it is only an enum declaration and PIT applies the default enum junk filter.
+- `JsonScope` contributes only constants plus a private empty constructor, so it has no meaningful mutatable logic under the default mutator set.
+- `MalformedJsonException` contributes only thin delegating constructors.
+- `package-info.java` contributes package metadata only.
+- Therefore the relatively short PIT runtime is largely explained by the effective mutatable scope shrinking to three source files, not by a broken `targetClasses` or `targetTests` configuration.
 
 ## Repository organization
 
