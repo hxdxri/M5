@@ -7,7 +7,7 @@ This workspace now contains:
 - the upstream `google/gson` repository as a Git submodule in [`gson`](/Users/haidari/Desktop/M5/gson)
 - a tracked patch for the Gson PIT changes in [`patches/gson-milestone5.patch`](/Users/haidari/Desktop/M5/patches/gson-milestone5.patch)
 - helper scripts in [`scripts`](/Users/haidari/Desktop/M5/scripts)
-- setup notes in [`docs/milestone5-foundation.md`](/Users/haidari/Desktop/M5/docs/milestone5-foundation.md)
+- setup notes in [`docs/milestone5-foundation.md`](/Users/haidari/Desktop/M5/docs/M5-Foundation.md)
 
 Quick start:
 
