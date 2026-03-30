@@ -95,9 +95,9 @@ Interpretation:
 - `package-info.java` contributes package metadata only.
 - Therefore the relatively short PIT runtime is largely explained by the effective mutatable scope shrinking to three source files, not by a broken `targetClasses` or `targetTests` configuration.
 
-## Proposed expanded PIT scope
+## Expanded PIT scope
 
-Recommended expansion:
+The `milestone5-pit` profile now uses this expanded `targetClasses` list:
 
 - Recommended `targetClasses` list:
 - `com.google.gson.stream.*`
@@ -107,7 +107,7 @@ Recommended expansion:
 - `com.google.gson.internal.bind.JsonTreeReader`
 - `com.google.gson.internal.bind.JsonTreeWriter`
 - `com.google.gson.internal.bind.JsonElementTypeAdapter`
-- The first two entries are the current slice; the remaining five are the proposed additions.
+- The first two entries are the original slice; the remaining five are the adopted additions.
 
 Why this is an expansion, not a redirect:
 
@@ -151,6 +151,20 @@ Estimated combined effect if this expansion is added to the current baseline:
 - Current baseline: `687` mutations across `982` mutated-class LOC
 - Recommended expansion probe: `258` mutations across `379` mutated-class LOC
 - Combined estimated total: about `945` mutations across about `1361` mutated-class LOC
+
+Verified expanded baseline result:
+
+- Command: `scripts/run-pit-docker.sh baseline`
+- Result: `BUILD SUCCESS`
+- Duration: `4 minutes 4 seconds`
+- Mutated classes reported by PIT: `8`
+- Line coverage for mutated classes: `1309/1361` (`96%`)
+- Mutations generated: `945`
+- Mutations killed: `795` (`84%`)
+- Test strength: `86%`
+- Mutations with no coverage: `18`
+- Tests executed during mutation analysis: `14461`
+- Timed out mutants: `9`
 
 Optional small add-on:
 

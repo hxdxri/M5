@@ -1,8 +1,8 @@
 diff --git a/gson/pom.xml b/gson/pom.xml
-index 7918efc6..1a2ccc4b 100644
+index 7918efc6..eb694fb8 100644
 --- a/gson/pom.xml
 +++ b/gson/pom.xml
-@@ -514,5 +514,64 @@
+@@ -514,5 +514,74 @@
          </plugins>
        </build>
      </profile>
@@ -11,10 +11,15 @@ index 7918efc6..1a2ccc4b 100644
 +      <id>milestone5-pit</id>
 +      <properties>
 +        <pitest.version>1.15.3</pitest.version>
-+        <!-- Initial milestone scope: Gson's streaming subsystem plus JsonStreamParser -->
++        <!-- Expanded milestone scope: streaming subsystem plus adjacent parser/tree bridge classes -->
 +        <pitest.target.tests>com.google.gson.*</pitest.target.tests>
 +        <pitest.target.class.1>com.google.gson.stream.*</pitest.target.class.1>
 +        <pitest.target.class.2>com.google.gson.JsonStreamParser</pitest.target.class.2>
++        <pitest.target.class.3>com.google.gson.JsonParser</pitest.target.class.3>
++        <pitest.target.class.4>com.google.gson.internal.Streams</pitest.target.class.4>
++        <pitest.target.class.5>com.google.gson.internal.bind.JsonTreeReader</pitest.target.class.5>
++        <pitest.target.class.6>com.google.gson.internal.bind.JsonTreeWriter</pitest.target.class.6>
++        <pitest.target.class.7>com.google.gson.internal.bind.JsonElementTypeAdapter</pitest.target.class.7>
 +        <pitest.reports.directory>${project.build.directory}/pit-reports</pitest.reports.directory>
 +        <pitest.history.file>${project.build.directory}/pit-history/history.bin</pitest.history.file>
 +        <pitest.threads>7</pitest.threads>
@@ -33,6 +38,11 @@ index 7918efc6..1a2ccc4b 100644
 +              <targetClasses>
 +                <param>${pitest.target.class.1}</param>
 +                <param>${pitest.target.class.2}</param>
++                <param>${pitest.target.class.3}</param>
++                <param>${pitest.target.class.4}</param>
++                <param>${pitest.target.class.5}</param>
++                <param>${pitest.target.class.6}</param>
++                <param>${pitest.target.class.7}</param>
 +              </targetClasses>
 +              <targetTests>
 +                <param>${pitest.target.tests}</param>
