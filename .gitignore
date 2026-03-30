@@ -10,7 +10,4 @@ artifacts/pit/*
 artifacts/pit/history/
 !artifacts/pit/smoke/**
 !artifacts/pit/baseline/**
-logs/*
-!logs/pit-smoke.log
-!logs/pit-baseline.log
 TechTitans_Milestone4_report.pdf
