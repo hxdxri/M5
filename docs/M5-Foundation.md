@@ -95,6 +95,83 @@ Interpretation:
 - `package-info.java` contributes package metadata only.
 - Therefore the relatively short PIT runtime is largely explained by the effective mutatable scope shrinking to three source files, not by a broken `targetClasses` or `targetTests` configuration.
 
+## Proposed expanded PIT scope
+
+Recommended expansion:
+
+- Recommended `targetClasses` list:
+- `com.google.gson.stream.*`
+- `com.google.gson.JsonStreamParser`
+- `com.google.gson.JsonParser`
+- `com.google.gson.internal.Streams`
+- `com.google.gson.internal.bind.JsonTreeReader`
+- `com.google.gson.internal.bind.JsonTreeWriter`
+- `com.google.gson.internal.bind.JsonElementTypeAdapter`
+- The first two entries are the current slice; the remaining five are the proposed additions.
+
+Why this is an expansion, not a redirect:
+
+- `JsonParser` is the public facade immediately above `JsonReader` and `Streams`.
+- `Streams` is the internal bridge between streaming and tree parsing/writing.
+- `JsonTreeReader` and `JsonTreeWriter` are tree-backed counterparts of `JsonReader` and `JsonWriter`.
+- `JsonElementTypeAdapter` is the adapter that recursively converts between `JsonElement` trees and the streaming layer.
+- All of these classes are still centered on Gson's read/write/parse pipeline rather than shifting into unrelated subsystems such as reflection, object construction, or the large general-purpose adapter registry.
+
+Approximate added size:
+
+- Added raw production LOC for the recommended expansion: about `1163` lines
+- Added raw total target production LOC if combined with the current slice: about `4201` lines
+
+Probe result for the recommended expansion only:
+
+- Probe target classes:
+- `com.google.gson.JsonParser`
+- `com.google.gson.internal.Streams`
+- `com.google.gson.internal.bind.JsonTreeReader`
+- `com.google.gson.internal.bind.JsonTreeWriter`
+- `com.google.gson.internal.bind.JsonElementTypeAdapter`
+- Probe report artifact: [`artifacts/pit/investigate-expanded-probe`](/Users/haidari/Desktop/M5/artifacts/pit/investigate-expanded-probe)
+- Mutated classes reported by PIT: `5`
+- Mutated-class LOC reported by PIT: `379`
+- Mutations generated: `258`
+- Mutations killed: `217` (`84%`)
+- Test strength: `86%`
+- Line coverage for mutated classes: `350/379` (`92%`)
+
+Probe breakdown by class:
+
+- `JsonParser`: `11` mutations, `13/22` mutated-class LOC covered
+- `Streams`: `6` mutations, `13/19` mutated-class LOC covered
+- `JsonElementTypeAdapter`: `36` mutations, `67/69` mutated-class LOC covered
+- `JsonTreeReader`: `144` mutations, `175/181` mutated-class LOC covered
+- `JsonTreeWriter`: `61` mutations, `82/88` mutated-class LOC covered
+
+Estimated combined effect if this expansion is added to the current baseline:
+
+- Current baseline: `687` mutations across `982` mutated-class LOC
+- Recommended expansion probe: `258` mutations across `379` mutated-class LOC
+- Combined estimated total: about `945` mutations across about `1361` mutated-class LOC
+
+Optional small add-on:
+
+- `com.google.gson.FormattingStyle`
+- Rationale: it is directly adjacent to `JsonWriter` configuration and has real validation logic, unlike the zero-yield enum/constant classes.
+- Raw size: `156` LOC
+- Standalone PIT probe artifact: [`artifacts/pit/investigate-formatting-style`](/Users/haidari/Desktop/M5/artifacts/pit/investigate-formatting-style)
+- Standalone PIT probe result: `7` mutations, `19/19` mutated-class LOC covered, `100%` killed
+
+Classes still not worth adding for PIT breadth:
+
+- `com.google.gson.Strictness`
+- `com.google.gson.stream.JsonToken`
+- `com.google.gson.stream.JsonScope`
+- `com.google.gson.stream.MalformedJsonException`
+- `package-info.java`
+
+Reason:
+
+- These are enums, constants, metadata holders, or thin constructors and either already showed `0` useful mutants or are likely to contribute very little compared with the recommended expansion above.
+
 ## Repository organization
 
 - [`gson`](/Users/haidari/Desktop/M5/gson): upstream repository as a pinned submodule

@@ -1,0 +1,2646 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>Streams.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (C) 2010 Google Inc.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.gson.internal;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.gson.JsonElement;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.gson.JsonIOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.gson.JsonNull;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.gson.JsonParseException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.gson.JsonSyntaxException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.gson.internal.bind.JsonElementTypeAdapter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.gson.stream.JsonReader;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.gson.stream.JsonToken;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.gson.stream.JsonWriter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.gson.stream.MalformedJsonException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Closeable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.EOFException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Flushable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Writer;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Objects;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/** Reads and writes GSON parse trees over streams. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class Streams {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  private Streams() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    throw new UnsupportedOperationException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /** Takes a reader in any state and returns the next value as a JsonElement. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static JsonElement parse(JsonReader reader) throws JsonParseException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    boolean isEmpty = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      JsonToken unused = reader.peek();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      isEmpty = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_48'>1</a>
+<span>
+1. parse : replaced return value with null for com/google/gson/internal/Streams::parse &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return JsonElementTypeAdapter.ADAPTER.read(reader);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    } catch (EOFException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      /*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * For compatibility with JSON 1.5 and earlier, we return a JsonNull for</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       * empty documents instead of throwing.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>       */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_54'/>
+54
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_54'>1</a>
+<span>
+1. parse : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (isEmpty) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_55'>1</a>
+<span>
+1. parse : replaced return value with null for com/google/gson/internal/Streams::parse &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return JsonNull.INSTANCE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // The stream ended prematurely so it is likely a syntax error.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      throw new JsonSyntaxException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    } catch (MalformedJsonException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      throw new JsonSyntaxException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    } catch (IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      throw new JsonIOException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    } catch (NumberFormatException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      throw new JsonSyntaxException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /** Writes the JSON element to the writer, recursively. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static void write(JsonElement element, JsonWriter writer) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_70'>1</a>
+<span>
+1. write : removed call to com/google/gson/internal/bind/JsonElementTypeAdapter::write &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    JsonElementTypeAdapter.ADAPTER.write(writer, element);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static Writer writerForAppendable(Appendable appendable) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_74'/>
+74
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_74'>2</a>
+<span>
+1. writerForAppendable : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. writerForAppendable : replaced return value with null for com/google/gson/internal/Streams::writerForAppendable &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return appendable instanceof Writer ? (Writer) appendable : new AppendableWriter(appendable);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /** Adapts an {@link Appendable} so it can be passed anywhere a {@link Writer} is used. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static final class AppendableWriter extends Writer {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Appendable appendable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final CurrentWrite currentWrite = new CurrentWrite();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    AppendableWriter(Appendable appendable) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.appendable = appendable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @SuppressWarnings(&#34;UngroupedOverloads&#34;) // this is intentionally ungrouped, see comment below</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void write(char[] chars, int offset, int length) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      currentWrite.setChars(chars);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      appendable.append(currentWrite, offset, offset + length);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void flush() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      if (appendable instanceof Flushable) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        ((Flushable) appendable).flush();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void close() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      if (appendable instanceof Closeable) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        ((Closeable) appendable).close();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Override these methods for better performance</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // They would otherwise unnecessarily create Strings or char arrays</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_111'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void write(int i) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      appendable.append((char) i);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_114'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_115'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_116'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void write(String str, int off, int len) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_117'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Appendable.append turns null -&#62; &#34;null&#34;, which is not desired here</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Objects.requireNonNull(str);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      appendable.append(str, off, off + len);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Writer append(CharSequence csq) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      appendable.append(csq);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Writer append(CharSequence csq, int start, int end) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      appendable.append(csq, start, end);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** A mutable char sequence pointing at a single char[]. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static class CurrentWrite implements CharSequence {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      private char[] chars;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      private String cachedString;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_139'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      void setChars(char[] chars) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        this.chars = chars;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_141'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        this.cachedString = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_142'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_143'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_145'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      public int length() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_146'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return chars.length;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_147'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_148'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      public char charAt(int i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return chars[i];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_154'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_155'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      public CharSequence subSequence(int start, int end) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return new String(chars, start, end - start);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_157'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Must return string representation to satisfy toString() contract</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_161'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      public String toString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_162'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        if (cachedString == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_163'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          cachedString = new String(chars);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_164'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_165'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return cachedString;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_166'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_167'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_168'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2eb91767_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_169'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2eb91767_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>com.google.gson.JsonStreamParserTest.testParseTwoStrings(com.google.gson.JsonStreamParserTest)</span></span> replaced return value with null for com/google/gson/internal/Streams::parse &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2eb91767_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_54'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>com.google.gson.JsonParserTest.testParseEmptyWhitespaceInput(com.google.gson.JsonParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2eb91767_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>com.google.gson.JsonParserTest.testParseEmptyWhitespaceInput(com.google.gson.JsonParserTest)</span></span> replaced return value with null for com/google/gson/internal/Streams::parse &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2eb91767_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>write<br/><b>Killed by : </b>com.google.gson.functional.ReadersWritersTest.testTopLevelNullObjectSerializationWithWriter(com.google.gson.functional.ReadersWritersTest)</span></span> removed call to com/google/gson/internal/bind/JsonElementTypeAdapter::write &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2eb91767_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2eb91767_74'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>writerForAppendable<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>writerForAppendable<br/><b>Killed by : </b>com.google.gson.internal.StreamsTest.testWriterForAppendable(com.google.gson.internal.StreamsTest)</span></span> replaced return value with null for com/google/gson/internal/Streams::writerForAppendable &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.gson.internal.StreamsTest.testWriterForAppendable(com.google.gson.internal.StreamsTest) (5 ms)</li><li>com.google.gson.functional.StringTest.testJavascriptKeywordsInStringSerialization(com.google.gson.functional.StringTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testSerializeMaps(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testDeepParameterizedTypeSerialization(com.google.gson.functional.ParameterizedTypesTest) (0 ms)</li><li>com.google.gson.functional.ReadersWritersTest.testWriterForSerialization(com.google.gson.functional.ReadersWritersTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testLocaleSerializationWithLanguageCountry(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.VersioningTest.testVersionedUntilSerialization(com.google.gson.functional.VersioningTest) (0 ms)</li><li>com.google.gson.functional.FieldNamingTest.testLowerCaseWithUnderscores(com.google.gson.functional.FieldNamingTest) (0 ms)</li><li>com.google.gson.functional.Java17RecordTest.testAccessorIsCalled(com.google.gson.functional.Java17RecordTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testNumberSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.StreamingTypeAdaptersTest.testSerializeMap(com.google.gson.functional.StreamingTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.SerializedNameTest.testFirstNameIsChosenForSerialization(com.google.gson.functional.SerializedNameTest) (0 ms)</li><li>com.google.gson.functional.StringTest.testStringValueAsSingleElementArraySerialization(com.google.gson.functional.StringTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testWildcardPrimitiveCollectionSerilaization(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapSerializationEmpty(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testDelegatingAdapterFactory_Delayed(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testCollectionOfObjectSerialization(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testConcurrentNavigableMap(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeLocalTime(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testPrimitiveLongAutoboxedInASingleElementArraySerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testGsonDuplicateNameUsingSerializedNameFieldNamingPolicySerialization(com.google.gson.functional.NamingPolicyTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testGetAdapterDelegation(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testFieldIsArrayList(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testPrimitiveBooleanAutoboxedSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testVariableTypeArrayDeserialization(com.google.gson.functional.ParameterizedTypesTest) (0 ms)</li><li>com.google.gson.LongSerializationPolicyTest.testDefaultLongSerializationIntegration(com.google.gson.LongSerializationPolicyTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testReallyLongValuesSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testSuperclassTypeAdapterNotInvoked(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testPrimitiveLongAutoboxedSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testArrayOfObjectsSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testJsonAdapterFactoryInvoked(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testParameterizedTypesSerialization(com.google.gson.functional.ParameterizedTypesTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testDelegating_SameFactoryInstance(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.functional.FormattingStyleTest.testPrettyToCompact(com.google.gson.functional.FormattingStyleTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testGsonWithUpperCamelCaseSpacesPolicySerialiation(com.google.gson.functional.NamingPolicyTest) (0 ms)</li><li>com.google.gson.functional.FieldNamingTest.testUpperCaseWithUnderscores(com.google.gson.functional.FieldNamingTest) (0 ms)</li><li>com.google.gson.functional.Java17RecordTest.testClassReflectionFilter(com.google.gson.functional.Java17RecordTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testFloatNaNSerializationNotSupportedByDefault(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.ExposeFieldsTest.testNullExposeFieldSerialization(com.google.gson.functional.ExposeFieldsTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testGsonWithLowerCaseDashPolicySerialization(com.google.gson.functional.NamingPolicyTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testSingleNullInArraySerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.StringTest.testSingleQuoteInStringSerialization(com.google.gson.functional.StringTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testFieldAnnotationTakesPrecedenceOverClassAnnotation(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testMixingTypesInObjectArraySerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testLongSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.StringTest.testAssignmentCharSerialization(com.google.gson.functional.StringTest) (0 ms)</li><li>com.google.gson.functional.VersioningTest.testVersionedGsonWithUnversionedClassesSerialization(com.google.gson.functional.VersioningTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testTopLevelCollectionOfIntegersSerialization(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.ObjectTypeAdapterParameterizedTest.testReadWrite[0](com.google.gson.ObjectTypeAdapterParameterizedTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeLocalDate(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.ExposeFieldsTest.testExposedInterfaceFieldSerialization(com.google.gson.functional.ExposeFieldsTest) (0 ms)</li><li>com.google.gson.functional.PrettyPrintingTest.testEmptyMapField(com.google.gson.functional.PrettyPrintingTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testNullSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testRegisteredTypeAdapterTakesPrecedenceOverClassAnnotationAdapter(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testPrimitiveDoubleAutoboxedSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.SecurityTest.testJsonWithNonExectuableTokenSerialization(com.google.gson.functional.SecurityTest) (0 ms)</li><li>com.google.gson.functional.NullObjectAndFieldTest.testPrintPrintingObjectWithNulls(com.google.gson.functional.NullObjectAndFieldTest) (0 ms)</li><li>com.google.gson.functional.RawSerializationTest.testParameterizedObject(com.google.gson.functional.RawSerializationTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testOverrideBigIntegerTypeAdapter(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testDeprecatedNamingStrategy(com.google.gson.functional.NamingPolicyTest) (0 ms)</li><li>com.google.gson.functional.InheritanceTest.testBaseSerializedAsBaseWhenSpecifiedWithExplicitTypeForToJsonMethod(com.google.gson.functional.InheritanceTest) (0 ms)</li><li>com.google.gson.internal.bind.DefaultDateTypeAdapterTest.testDatePattern(com.google.gson.internal.bind.DefaultDateTypeAdapterTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testInnerClassSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testPrimitiveFieldAnnotationTakesPrecedenceOverDefault(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.InternationalizationTest.testStringsWithUnicodeChineseCharactersSerialization(com.google.gson.functional.InternationalizationTest) (0 ms)</li><li>com.google.gson.functional.Java17RecordTest.testStaticFieldSerialization(com.google.gson.functional.Java17RecordTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testOverwriteBuiltIn(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testFloatSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.EnumTest.testEnumSubclass(com.google.gson.functional.EnumTest) (0 ms)</li><li>com.google.gson.ObjectTypeAdapterParameterizedTest.testReadWrite[3](com.google.gson.ObjectTypeAdapterParameterizedTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapSerializationWithWildcardValues(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testGsonWithLowerCaseDotPolicySerialization(com.google.gson.functional.NamingPolicyTest) (0 ms)</li><li>com.google.gson.functional.UncategorizedTest.testObjectEqualButNotSameSerialization(com.google.gson.functional.UncategorizedTest) (0 ms)</li><li>com.google.gson.functional.JavaUtilConcurrentAtomicTest.testAtomicLongArrayWithStringSerializationPolicy(com.google.gson.functional.JavaUtilConcurrentAtomicTest) (0 ms)</li><li>com.google.gson.functional.StreamingTypeAdaptersTest.testSerializeNullObject(com.google.gson.functional.StreamingTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testObjectArrayWithNonPrimitivesSerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.Java17RecordTest.testFieldExclusionStrategy(com.google.gson.functional.Java17RecordTest) (0 ms)</li><li>com.google.gson.functional.ExposeFieldsTest.testExposeAnnotationSerialization(com.google.gson.functional.ExposeFieldsTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testSmallValueForBigDecimalSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.RawSerializationTest.testCollectionOfObjects(com.google.gson.functional.RawSerializationTest) (0 ms)</li><li>com.google.gson.functional.JavaUtilTest.testProperties(com.google.gson.functional.JavaUtilTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testDoubleSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.EscapingTest.testGsonDoubleDeserialization(com.google.gson.functional.EscapingTest) (0 ms)</li><li>com.google.gson.functional.RawSerializationTest.testThreeLevelParameterizedObject(com.google.gson.functional.RawSerializationTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testSetSerialization(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest.testJsonDeserializer_ReflectiveTreeSerializerDelegate(com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest) (0 ms)</li><li>com.google.gson.ObjectTypeAdapterParameterizedTest.testReadWrite[7](com.google.gson.ObjectTypeAdapterParameterizedTest) (0 ms)</li><li>com.google.gson.functional.Java17RecordTest.testRecordNull(com.google.gson.functional.Java17RecordTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testBagOfPrimitiveWrappersSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.CircularReferenceTest.testDirectedAcyclicGraphSerialization(com.google.gson.functional.CircularReferenceTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testConcurrentHashMap(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testVariableTypeFieldsAndGenericArraysDeserialization(com.google.gson.functional.ParameterizedTypesTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testFieldAnnotationWorksForParameterizedType(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest.testJsonDeserializer_CustomSerializerDelegate(com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest) (0 ms)</li><li>com.google.gson.functional.PrettyPrintingTest.testPrettyPrintArrayOfPrimitiveArrays(com.google.gson.functional.PrettyPrintingTest) (0 ms)</li><li>com.google.gson.functional.Java17RecordTest.testExposeAnnotation(com.google.gson.functional.Java17RecordTest) (0 ms)</li><li>com.google.gson.OverrideCoreTypeAdaptersTest.testOverridePrimitiveBooleanAdapter(com.google.gson.OverrideCoreTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testBigIntegerSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.LongSerializationPolicyTest.testStringLongSerializationNull(com.google.gson.LongSerializationPolicyTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testArrayElementsAreArrays(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.FormattingStyleTest.testFormatCompact(com.google.gson.functional.FormattingStyleTest) (0 ms)</li><li>com.google.gson.functional.GsonVersionDiagnosticsTest.testAssertionErrorInSerializationPrintsVersion(com.google.gson.functional.GsonVersionDiagnosticsTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testUriSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testClassWithTransientFieldsSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.DelegateTypeAdapterTest.testDelegateInvokedOnStrings(com.google.gson.functional.DelegateTypeAdapterTest) (0 ms)</li><li>com.google.gson.functional.StreamingTypeAdaptersTest.testSerialize(com.google.gson.functional.StreamingTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.JavaUtilConcurrentAtomicTest.testAtomicBoolean(com.google.gson.functional.JavaUtilConcurrentAtomicTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapSubclassSerialization(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testArrayOfNullSerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeOffsetTime(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.ExclusionStrategyFunctionalTest.testExcludeTopLevelClassDeserializationDoesNotImpactSerialization(com.google.gson.functional.ExclusionStrategyFunctionalTest) (0 ms)</li><li>com.google.gson.functional.ConcurrencyTest.testSingleThreadSerialization(com.google.gson.functional.ConcurrencyTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest.testGsonFutureAdapter(com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest) (0 ms)</li><li>com.google.gson.LongSerializationPolicyTest.testStringLongSerializationIntegration(com.google.gson.LongSerializationPolicyTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testIntSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.FormattingStyleTest.testDefault(com.google.gson.functional.FormattingStyleTest) (0 ms)</li><li>com.google.gson.functional.FieldNamingTest.testIdentity(com.google.gson.functional.FieldNamingTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJsonNullSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapWithQuotes(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testPrimitiveIntegerAutoboxedSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testTreeSetSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.FormattingStyleTest.testFormatPretty(com.google.gson.functional.FormattingStyleTest) (0 ms)</li><li>com.google.gson.functional.JavaUtilConcurrentAtomicTest.testAtomicInteger(com.google.gson.functional.JavaUtilConcurrentAtomicTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testBigDecimalInASingleElementArraySerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testLocaleSerializationWithLanguage(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testGsonWithAlternateNamesSerialization(com.google.gson.functional.NamingPolicyTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testDelegatingAdapterFactory(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testCollectionOfBagOfPrimitivesSerialization(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.FormattingStyleTest.testFormatPrettySingleLine(com.google.gson.functional.FormattingStyleTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testCollectionOfStringsSerialization(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testMoreSpecificSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.ObjectTypeAdapterParameterizedTest.testReadWrite[1](com.google.gson.ObjectTypeAdapterParameterizedTest) (0 ms)</li><li>com.google.gson.ObjectTypeAdapterTest.testSerializeNullValue(com.google.gson.ObjectTypeAdapterTest) (0 ms)</li><li>com.google.gson.functional.StringTest.testEscapingQuotesInStringSerialization(com.google.gson.functional.StringTest) (0 ms)</li><li>com.google.gson.functional.StreamingTypeAdaptersTest.testSerialize2dArray(com.google.gson.functional.StreamingTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testPropertiesSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testClassWithNoFieldsSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapSerializationWithNullValue(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.PrettyPrintingTest.testPrettyPrintArrayOfObjects(com.google.gson.functional.PrettyPrintingTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeLocalDateTime(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testTopLevelArrayOfIntsSerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testEmptyCollectionInAnObjectSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.VersioningTest.testIgnoreLaterVersionClassSerialization(com.google.gson.functional.VersioningTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testBitSetDeserialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testArrayOfObjectsAsFields(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testDoubleNaNSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testBigDecimalFieldSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.StreamingTypeAdaptersTest.testSerialize1dArray(com.google.gson.functional.StreamingTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testWildcardCollectionField(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testJsonAdapterWrappedInNullSafeAsRequested(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.MoreSpecificTypeSerializationTest.testSubclassFields(com.google.gson.functional.MoreSpecificTypeSerializationTest) (0 ms)</li><li>com.google.gson.functional.StreamingTypeAdaptersTest.testSerializeWithCustomTypeAdapter(com.google.gson.functional.StreamingTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.ExclusionStrategyFunctionalTest.testExclusionStrategySerializationDoesNotImpactSerialization(com.google.gson.functional.ExclusionStrategyFunctionalTest) (0 ms)</li><li>com.google.gson.OverrideCoreTypeAdaptersTest.testOverrideStringAdapter(com.google.gson.OverrideCoreTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testParameterizedTypeGenericArraysSerialization(com.google.gson.functional.ParameterizedTypesTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDefaultCalendarSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.InterfaceTest.testSerializingInterfaceObjectField(com.google.gson.functional.InterfaceTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testPrimitiveBooleanAutoboxedInASingleElementArraySerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testGsonWithSerializedNameFieldNamingPolicySerialization(com.google.gson.functional.NamingPolicyTest) (0 ms)</li><li>com.google.gson.functional.StreamingTypeAdaptersTest.testSerializeNullField(com.google.gson.functional.StreamingTypeAdaptersTest) (0 ms)</li><li>com.google.gson.ObjectTypeAdapterTest.testSerializeObject(com.google.gson.ObjectTypeAdapterTest) (0 ms)</li><li>com.google.gson.functional.EnumTest.testEnumClassWithFields(com.google.gson.functional.EnumTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapSerializationWithNullValuesSerialized(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testNullsInArrayWithSerializeNullPropertySetSerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterPrecedenceTest.testStreamingFollowedByNonstreamingHierarchical(com.google.gson.functional.TypeAdapterPrecedenceTest) (0 ms)</li><li>com.google.gson.functional.InterfaceTest.testSerializingObjectImplementingInterface(com.google.gson.functional.InterfaceTest) (0 ms)</li><li>com.google.gson.GsonBuilderTest.testTransientFieldExclusion(com.google.gson.GsonBuilderTest) (0 ms)</li><li>com.google.gson.functional.EnumTest.testJdkEnum(com.google.gson.functional.EnumTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testIncorrectTypeAdapterFails(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapSerializationWithNullValues(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.MoreSpecificTypeSerializationTest.testListOfParameterizedSubclassFields(com.google.gson.functional.MoreSpecificTypeSerializationTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testBitSetSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.OverrideCoreTypeAdaptersTest.testOverrideWrapperBooleanAdapter(com.google.gson.OverrideCoreTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.EscapingTest.testEscapingQuotesInStringArray(com.google.gson.functional.EscapingTest) (0 ms)</li><li>com.google.gson.functional.StringTest.testEscapedBackslashInStringSerialization(com.google.gson.functional.StringTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testArrayOfStringsSerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testFloatInfinitySerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testNullFieldsSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.MoreSpecificTypeSerializationTest.testParameterizedSubclassFields(com.google.gson.functional.MoreSpecificTypeSerializationTest) (0 ms)</li><li>com.google.gson.internal.sql.SqlTypesGsonTest.testDefaultSqlTimeSerialization(com.google.gson.internal.sql.SqlTypesGsonTest) (0 ms)</li><li>com.google.gson.functional.UncategorizedTest.testStaticFieldsAreNotSerialized(com.google.gson.functional.UncategorizedTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testDelegating_SameFactoryClass(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testSingleStringArraySerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testBigDecimalPreservePrecisionSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.MoreSpecificTypeSerializationTest.testListOfSubclassFields(com.google.gson.functional.MoreSpecificTypeSerializationTest) (0 ms)</li><li>com.google.gson.functional.NullObjectAndFieldTest.testExplicitSerializationOfNulls(com.google.gson.functional.NullObjectAndFieldTest) (0 ms)</li><li>com.google.gson.functional.InheritanceTest.testBaseSerializedAsSubWhenSpecifiedWithExplicitTypeForToJsonMethod(com.google.gson.functional.InheritanceTest) (0 ms)</li><li>com.google.gson.functional.FieldExclusionTest.testDefaultNestedStaticClassIncluded(com.google.gson.functional.FieldExclusionTest) (0 ms)</li><li>com.google.gson.functional.RawSerializationTest.testTwoLevelParameterizedObject(com.google.gson.functional.RawSerializationTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testShortSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.LongSerializationPolicyTest.testDefaultLongSerializationNull(com.google.gson.LongSerializationPolicyTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testSerializeMapOfMaps(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testNegativeInfinitySerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testNestedSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.FieldNamingTest.testLowerCaseWithDashes(com.google.gson.functional.FieldNamingTest) (0 ms)</li><li>com.google.gson.functional.JavaUtilConcurrentAtomicTest.testAtomicLong(com.google.gson.functional.JavaUtilConcurrentAtomicTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testEmptyArraySerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapSerializationWithNullKey(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterPrecedenceTest.testStreamingHierarchicalFollowedByNonstreamingHierarchical(com.google.gson.functional.TypeAdapterPrecedenceTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testNullsInListSerialization(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testMultidimensionalPrimitiveArraysSerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.NullObjectAndFieldTest.testPrintPrintingArraysWithNulls(com.google.gson.functional.NullObjectAndFieldTest) (0 ms)</li><li>com.google.gson.functional.EnumTest.testClassWithEnumFieldSerialization(com.google.gson.functional.EnumTest) (0 ms)</li><li>com.google.gson.functional.StringTest.testEscapedCtrlNInStringSerialization(com.google.gson.functional.StringTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest.testJsonDeserializer_SubclassBackwardCompatibility(com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testDelegating_SameFactoryClass_OnClassAndField(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testLongAsStringSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeInstant(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.PrettyPrintingTest.testMap(com.google.gson.functional.PrettyPrintingTest) (0 ms)</li><li>com.google.gson.functional.InheritanceTest.testSubClassSerialization(com.google.gson.functional.InheritanceTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testDateAsMapObjectField(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.ObjectTypeAdapterTest.testSerialize(com.google.gson.ObjectTypeAdapterTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testFloatNaNSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.internal.sql.SqlTypesGsonTest.testTimestampSerialization(com.google.gson.internal.sql.SqlTypesGsonTest) (0 ms)</li><li>com.google.gson.functional.ExclusionStrategyFunctionalTest.testExcludeTopLevelClassSerialization(com.google.gson.functional.ExclusionStrategyFunctionalTest) (0 ms)</li><li>com.google.gson.functional.NullObjectAndFieldTest.testExplicitSerializationOfNullArrayMembers(com.google.gson.functional.NullObjectAndFieldTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapSerializationWithIntegerKeys(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.InternationalizationTest.testSupplementaryUnicodeSerialization(com.google.gson.functional.InternationalizationTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testParameterizedMapSubclassSerialization(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.ReadersWritersTest.testTopLevelNullObjectSerializationWithWriterAndSerializeNulls(com.google.gson.functional.ReadersWritersTest) (0 ms)</li><li>com.google.gson.internal.sql.SqlTypesGsonTest.testDefaultSqlDateSerialization(com.google.gson.internal.sql.SqlTypesGsonTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testFieldAnnotationTakesPrecedenceOverRegisteredTypeAdapter(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterPrecedenceTest.testStreamingFollowedByStreaming(com.google.gson.functional.TypeAdapterPrecedenceTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testByteSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.VersioningTest.testVersionedClassesSerialization(com.google.gson.functional.VersioningTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterPrecedenceTest.testSerializeNonstreamingTypeAdapterFollowedByStreamingTypeAdapter(com.google.gson.functional.TypeAdapterPrecedenceTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testRawCollectionOfIntegersSerialization(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testLazilyParsedNumberSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.NullObjectAndFieldTest.testExplicitSerializationOfNullCollectionMembers(com.google.gson.functional.NullObjectAndFieldTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testClassAnnotationAdapterTakesPrecedenceOverDefault(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.EnumWithObfuscatedTest.testEnumClassWithObfuscated(com.google.gson.functional.EnumWithObfuscatedTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testObjectMapSerialization(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.PrettyPrintingTest.testPrettyPrintArrayOfPrimitives(com.google.gson.functional.PrettyPrintingTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testGsonWithLowerCaseUnderscorePolicySerialization(com.google.gson.functional.NamingPolicyTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testConcurrentMap(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testAtSignInSerializedName(com.google.gson.functional.NamingPolicyTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testConcurrentSkipListMap(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testStaticFieldSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.ExposeFieldsTest.testNoExposedFieldSerialization(com.google.gson.functional.ExposeFieldsTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testGsonDuplicateNameDueToBadNamingPolicy(com.google.gson.functional.NamingPolicyTest) (0 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testParameterizedTypeWithVariableTypeDeserialization(com.google.gson.functional.ParameterizedTypesTest) (0 ms)</li><li>com.google.gson.functional.TypeVariableTest.testTypeVariablesViaTypeParameter(com.google.gson.functional.TypeVariableTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveCharacterTest.testPrimitiveCharacterAutoboxedSerialization(com.google.gson.functional.PrimitiveCharacterTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testExcludePrecedence(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.NullObjectAndFieldTest.testNullWrappedPrimitiveMemberSerialization(com.google.gson.functional.NullObjectAndFieldTest) (0 ms)</li><li>com.google.gson.functional.StringTest.testEscapedCtrlRInStringSerialization(com.google.gson.functional.StringTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testVector(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testRegisteredAdapterOverridesJsonAdapter(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.functional.CircularReferenceTest.testSelfReferenceIgnoredInSerialization(com.google.gson.functional.CircularReferenceTest) (0 ms)</li><li>com.google.gson.functional.InheritanceTest.testBaseSerializedAsSubForToJsonMethod(com.google.gson.functional.InheritanceTest) (0 ms)</li><li>com.google.gson.functional.EscapingTest.testEscapingObjectFields(com.google.gson.functional.EscapingTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testNegativeInfinityFloatSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.FormattingStyleTest.testCompactToPretty(com.google.gson.functional.FormattingStyleTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testUrlSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testCollectionOfObjectWithNullSerialization(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testQuotedStringSerializationAndDeserialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testTypesWithMultipleParametersSerialization(com.google.gson.functional.ParameterizedTypesTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testObjectCollectionSerialization(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testVariableTypeFieldsAndGenericArraysSerialization(com.google.gson.functional.ParameterizedTypesTest) (0 ms)</li><li>com.google.gson.functional.Java17RecordTest.testRecordBaseClass(com.google.gson.functional.Java17RecordTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapOfMapSerialization(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testArrayOfCollectionSerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.internal.bind.DefaultDateTypeAdapterTest.testNullValue(com.google.gson.internal.bind.DefaultDateTypeAdapterTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest.testJsonDeserializer_ReflectiveSerializerDelegate(com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest) (0 ms)</li><li>com.google.gson.functional.InheritanceTest.testSubInterfacesOfCollectionSerialization(com.google.gson.functional.InheritanceTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testClassSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testSmallValueForBigIntegerSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testHtmlCharacterSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.VersioningTest.testVersionedGsonMixingSinceAndUntilSerialization(com.google.gson.functional.VersioningTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testNullJsonElementSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapSerialization(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testLinkedListSerialization(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testVariableTypeDeserialization(com.google.gson.functional.ParameterizedTypesTest) (0 ms)</li><li>com.google.gson.functional.ReadersWritersTest.testToJsonAppendable(com.google.gson.functional.ReadersWritersTest) (0 ms)</li><li>com.google.gson.functional.TypeVariableTest.testBasicTypeVariables(com.google.gson.functional.TypeVariableTest) (0 ms)</li><li>com.google.gson.internal.bind.DefaultDateTypeAdapterTest.testGsonDateFormat(com.google.gson.internal.bind.DefaultDateTypeAdapterTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testUuidSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testBigDecimalSerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.NullObjectAndFieldTest.testExplicitSerializationOfNullStringMembers(com.google.gson.functional.NullObjectAndFieldTest) (0 ms)</li><li>com.google.gson.TypeAdapterTest.testNullSafe(com.google.gson.TypeAdapterTest) (0 ms)</li><li>com.google.gson.functional.ReflectionAccessFilterTest.testBlockAllJava(com.google.gson.functional.ReflectionAccessFilterTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeZoneOffset(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.ReadersWritersTest.testTopLevelNullObjectSerializationWithWriter(com.google.gson.functional.ReadersWritersTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testNullsInArraySerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.EnumTest.testEnumSubclassAsParameterizedType(com.google.gson.functional.EnumTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testClassAnnotationAdapterFactoryTakesPrecedenceOverDefault(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testDelegating_SameFactoryInstance_OnClassAndField(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testMultidimensionalObjectArraysSerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testUrlNullSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testNullSafeObject(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.ObjectTypeAdapterParameterizedTest.testReadWrite[2](com.google.gson.ObjectTypeAdapterParameterizedTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testDoubleInfinitySerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.PrettyPrintingTest.testPrettyPrintList(com.google.gson.functional.PrettyPrintingTest) (0 ms)</li><li>com.google.gson.functional.PrettyPrintingTest.testPrettyPrintListOfPrimitiveArrays(com.google.gson.functional.PrettyPrintingTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testStringBufferSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.StringTest.testStringValueSerialization(com.google.gson.functional.StringTest) (0 ms)</li><li>com.google.gson.functional.NullObjectAndFieldTest.testTopLevelNullObjectSerialization(com.google.gson.functional.NullObjectAndFieldTest) (0 ms)</li><li>com.google.gson.functional.SecurityTest.testNonExecutableJsonSerialization(com.google.gson.functional.SecurityTest) (0 ms)</li><li>com.google.gson.functional.ReflectionAccessFilterTest.testBlockAllJavaExtendingJdkClass(com.google.gson.functional.ReflectionAccessFilterTest) (0 ms)</li><li>com.google.gson.functional.UncategorizedTest.testGsonInstanceReusableForSerializationAndDeserialization(com.google.gson.functional.UncategorizedTest) (0 ms)</li><li>com.google.gson.functional.EnumTest.testCollectionOfEnumsSerialization(com.google.gson.functional.EnumTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testStringFieldWithEmptyValueSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.EnumTest.testEnumCaseMapping(com.google.gson.functional.EnumTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testDoubleNaNSerializationNotSupportedByDefault(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.FieldNamingTest.testUpperCamelCaseWithSpaces(com.google.gson.functional.FieldNamingTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testPrimitiveIntegerAutoboxedInASingleElementArraySerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.RawSerializationTest.testCollectionOfPrimitives(com.google.gson.functional.RawSerializationTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testBagOfPrimitivesSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.FieldExclusionTest.testInnerClassExclusion(com.google.gson.functional.FieldExclusionTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testSingletonLists(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.ArrayTest.testMultidimensionalArraysSerialization(com.google.gson.functional.ArrayTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testBigIntegerInASingleElementArraySerialization(com.google.gson.functional.PrimitiveTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testGsonWithUpperCaseUnderscorePolicySerialization(com.google.gson.functional.NamingPolicyTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testBigIntegerFieldSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.JavaUtilConcurrentAtomicTest.testAtomicLongWithStringSerializationPolicy(com.google.gson.functional.JavaUtilConcurrentAtomicTest) (0 ms)</li><li>com.google.gson.functional.PrettyPrintingTest.testMultipleArrays(com.google.gson.functional.PrettyPrintingTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapSerializationWithNullValueButSerializeNulls(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.internal.sql.SqlTypesGsonTest.testSqlDateSerialization(com.google.gson.internal.sql.SqlTypesGsonTest) (1 ms)</li><li>com.google.gson.functional.PrimitiveTest.testFloatInfinitySerializationNotSupportedByDefault(com.google.gson.functional.PrimitiveTest) (1 ms)</li><li>com.google.gson.functional.ObjectTest.testClassWithObjectFieldSerialization(com.google.gson.functional.ObjectTest) (1 ms)</li><li>com.google.gson.functional.ReflectionAccessFilterTest.testBlockAllPartial(com.google.gson.functional.ReflectionAccessFilterTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testOverrideBigDecimalTypeAdapter(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.PrimitiveTest.testPrimitiveDoubleAutoboxedInASingleElementArraySerialization(com.google.gson.functional.PrimitiveTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeZonedDateTimeWithZoneOffset(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.JavaUtilConcurrentAtomicTest.testAtomicIntegerArray(com.google.gson.functional.JavaUtilConcurrentAtomicTest) (1 ms)</li><li>com.google.gson.functional.PrimitiveTest.testNegativeInfinitySerializationNotSupportedByDefault(com.google.gson.functional.PrimitiveTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeYear(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.internal.bind.DefaultDateTypeAdapterTest.testFormatUsesDefaultTimezone(com.google.gson.internal.bind.DefaultDateTypeAdapterTest) (1 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testParameterizedTypeGenericArraysDeserialization(com.google.gson.functional.ParameterizedTypesTest) (1 ms)</li><li>com.google.gson.functional.EscapingTest.testGsonAcceptsEscapedAndNonEscapedJsonDeserialization(com.google.gson.functional.EscapingTest) (1 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testExcludeSerializePrecedence(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.internal.sql.SqlTypesGsonTest.testNullSerializationAndDeserialization(com.google.gson.internal.sql.SqlTypesGsonTest) (1 ms)</li><li>com.google.gson.functional.ObjectTest.testPrimitiveArrayFieldSerialization(com.google.gson.functional.ObjectTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDefaultGregorianCalendarSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeZonedDateTimeWithZoneIdThatHasAdapter(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeYearMonth(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.Java17RecordTest.testFirstNameIsChosenForSerialization(com.google.gson.functional.Java17RecordTest) (1 ms)</li><li>com.google.gson.functional.Java17RecordTest.testReflectionFilterBlockInaccessible(com.google.gson.functional.Java17RecordTest) (1 ms)</li><li>com.google.gson.functional.ArrayTest.testArrayOfPrimitivesAsObjectsSerialization(com.google.gson.functional.ArrayTest) (1 ms)</li><li>com.google.gson.functional.MapTest.testGeneralMapField(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.FieldNamingTest.testUpperCamelCase(com.google.gson.functional.FieldNamingTest) (1 ms)</li><li>com.google.gson.functional.JavaUtilConcurrentAtomicTest.testAtomicLongArray(com.google.gson.functional.JavaUtilConcurrentAtomicTest) (1 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testGsonWithNonDefaultFieldNamingPolicySerialization(com.google.gson.functional.NamingPolicyTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDateSerializationWithPattern(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDefaultDateDeserializationUsingBuilder(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.internal.bind.Java17ReflectiveTypeAdapterFactoryTest.testSerializeRecords(com.google.gson.internal.bind.Java17ReflectiveTypeAdapterFactoryTest) (1 ms)</li><li>com.google.gson.functional.MapTest.testInterfaceTypeMap(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.functional.PrimitiveTest.testNegativeInfinityFloatSerializationNotSupportedByDefault(com.google.gson.functional.PrimitiveTest) (1 ms)</li><li>com.google.gson.functional.CollectionTest.testStack(com.google.gson.functional.CollectionTest) (1 ms)</li><li>com.google.gson.GsonBuilderTest.testRegisterTypeAdapterForJsonElements(com.google.gson.GsonBuilderTest) (0 ms)</li><li>com.google.gson.functional.Java17RecordTest.testThrowingAccessor(com.google.gson.functional.Java17RecordTest) (1 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testExcludeDeserializePrecedence(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.NamingPolicyTest.testComplexFieldNameStrategy(com.google.gson.functional.NamingPolicyTest) (1 ms)</li><li>com.google.gson.functional.TypeVariableTest.testAdvancedTypeVariables(com.google.gson.functional.TypeVariableTest) (1 ms)</li><li>com.google.gson.functional.MapTest.testWriteMapsWithEmptyStringKey(com.google.gson.functional.MapTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeOffsetDateTime(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.TypeAdapterTest.testToJson_ThrowingIOException(com.google.gson.TypeAdapterTest) (1 ms)</li><li>com.google.gson.functional.ReflectionAccessFilterTest.testBlockInaccessibleStaticField(com.google.gson.functional.ReflectionAccessFilterTest) (1 ms)</li><li>com.google.gson.functional.ObjectTest.testAnonymousLocalClassesSerialization(com.google.gson.functional.ObjectTest) (1 ms)</li><li>com.google.gson.functional.ObjectTest.testArrayOfArraysSerialization(com.google.gson.functional.ObjectTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testStringBuilderSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.ExclusionStrategyFunctionalTest.testExclusionStrategySerialization(com.google.gson.functional.ExclusionStrategyFunctionalTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeZoneRegion(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.EscapingTest.testEscapeAllHtmlCharacters(com.google.gson.functional.EscapingTest) (1 ms)</li><li>com.google.gson.functional.FieldExclusionTest.testDefaultInnerClassExclusion(com.google.gson.functional.FieldExclusionTest) (1 ms)</li><li>com.google.gson.internal.sql.SqlTypesGsonTest.testDefaultSqlTimestampSerialization(com.google.gson.internal.sql.SqlTypesGsonTest) (1 ms)</li><li>com.google.gson.functional.ReflectionAccessFilterTest.testDelegation(com.google.gson.functional.ReflectionAccessFilterTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testLocaleSerializationWithLanguageCountryVariant(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.JsonNullTest.testToString(com.google.gson.JsonNullTest) (0 ms)</li><li>com.google.gson.functional.ReflectionAccessTest.testSerializeInternalImplementationObject(com.google.gson.functional.ReflectionAccessTest) (1 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testIncorrectJsonAdapterType(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testSetSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.StreamingTypeAdaptersTest.testSerializeRecursive(com.google.gson.functional.StreamingTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDateSerializationWithPatternNotOverridenByTypeAdapter(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testFactoryReturningNull(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDateSerializationInCollection(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.PrintFormattingTest.testCompactFormattingLeavesNoWhiteSpace(com.google.gson.functional.PrintFormattingTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeDuration(com.google.gson.functional.DefaultTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.CollectionTest.testQueueSerialization(com.google.gson.functional.CollectionTest) (1 ms)</li><li>com.google.gson.GsonTypeAdapterTest.testTypeAdapterDoesNotAffectNonAdaptedTypes(com.google.gson.GsonTypeAdapterTest) (1 ms)</li><li>com.google.gson.GsonBuilderTest.testRegisterTypeHierarchyAdapterJsonElements_Allowed(com.google.gson.GsonBuilderTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testJsonAdapterInvoked(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (1 ms)</li><li>com.google.gson.functional.Java17RecordTest.testEmptyRecord(com.google.gson.functional.Java17RecordTest) (2 ms)</li><li>com.google.gson.functional.NullObjectAndFieldTest.testCustomTypeAdapterPassesNullSerialization(com.google.gson.functional.NullObjectAndFieldTest) (1 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJsonArraySerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomAdapterInvokedForMapElementSerialization(com.google.gson.functional.CustomTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomNestedSerializers(com.google.gson.functional.CustomTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.ReflectionAccessFilterTest.testAllowForSupertype(com.google.gson.functional.ReflectionAccessFilterTest) (2 ms)</li><li>com.google.gson.functional.MapTest.testMapWithoutNoArgsConstructor(com.google.gson.functional.MapTest) (2 ms)</li><li>com.google.gson.functional.CollectionTest.testUserCollectionTypeAdapter(com.google.gson.functional.CollectionTest) (0 ms)</li><li>com.google.gson.ObjectTypeAdapterParameterizedTest.testReadWrite[6](com.google.gson.ObjectTypeAdapterParameterizedTest) (2 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDefaultDateSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (2 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testRegisteredSerializerOverridesJsonAdapter(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.JsonObjectTest.testEqualsNonEmptyObject(com.google.gson.JsonObjectTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testCollectionWithoutNoArgsConstructor(com.google.gson.functional.CollectionTest) (2 ms)</li><li>com.google.gson.JsonArrayTest.testNullPrimitiveAddition(com.google.gson.JsonArrayTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testNonPrimitiveFieldAnnotationTakesPrecedenceOverDefault(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (2 ms)</li><li>com.google.gson.functional.PrimitiveTest.testDoubleInfinitySerializationNotSupportedByDefault(com.google.gson.functional.PrimitiveTest) (2 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomAdapterInvokedForMapElementSerializationWithType(com.google.gson.functional.CustomTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testDelegatingAdapterFactory_Delayed(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (2 ms)</li><li>com.google.gson.functional.JavaUtilTest.testCurrency(com.google.gson.functional.JavaUtilTest) (2 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJsonPrimitiveSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimePeriod(com.google.gson.functional.DefaultTypeAdaptersTest) (2 ms)</li><li>com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest.testJsonDeserializer_JsonSerializerDelegate(com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest) (0 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testParameterizedTypesWithWriterSerialization(com.google.gson.functional.ParameterizedTypesTest) (2 ms)</li><li>com.google.gson.functional.TreeTypeAdaptersTest.testSerializeId(com.google.gson.functional.TreeTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest.testJsonSerializer(com.google.gson.functional.TypeAdapterRuntimeTypeWrapperTest) (0 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomSerializerInvokedForPrimitives(com.google.gson.functional.CustomTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.EnumTest.testEnumSet(com.google.gson.functional.EnumTest) (2 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomAdapterInvokedForCollectionElementSerializationWithType(com.google.gson.functional.CustomTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.EnumTest.testTopLevelEnumSerialization(com.google.gson.functional.EnumTest) (2 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testDelegatingAdapterFactory(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (2 ms)</li><li>com.google.gson.GsonBuilderTest.testSetDateFormatNullPattern(com.google.gson.GsonBuilderTest) (2 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testAdapterCreatedByJdkUnsafe(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testNullSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (2 ms)</li><li>com.google.gson.GsonTest.testGetAdapter_FutureAdapterConcurrency(com.google.gson.GsonTest) (2 ms)</li><li>com.google.gson.functional.JsonAdapterSerializerDeserializerTest.testDifferentJsonAdaptersForGenericFieldsOfSameRawType(com.google.gson.functional.JsonAdapterSerializerDeserializerTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testAnonymousLocalClassesCustomSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.EnumTest.testEnumMap(com.google.gson.functional.EnumTest) (2 ms)</li><li>com.google.gson.ObjectTypeAdapterParameterizedTest.testReadWrite[5](com.google.gson.ObjectTypeAdapterParameterizedTest) (2 ms)</li><li>com.google.gson.functional.ObjectTest.testJsonObjectSerialization(com.google.gson.functional.ObjectTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testJsonSerializer(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.Java17RecordTest.testJsonAdapterAnnotation(com.google.gson.functional.Java17RecordTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testRegisteredDeserializerOverridesJsonAdapter(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (1 ms)</li><li>com.google.gson.JsonObjectTest.testWritePropertyWithEmptyStringName(com.google.gson.JsonObjectTest) (0 ms)</li><li>com.google.gson.GsonTest.testDefaultGsonNewBuilderModification(com.google.gson.GsonTest) (1 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomSerializers(com.google.gson.functional.CustomTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterPrecedenceTest.testNonstreamingHierarchicalFollowedByNonstreaming(com.google.gson.functional.TypeAdapterPrecedenceTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJsonObjectSerialization(com.google.gson.functional.DefaultTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.NullObjectAndFieldTest.testCustomSerializationOfNulls(com.google.gson.functional.NullObjectAndFieldTest) (0 ms)</li><li>com.google.gson.JsonArrayTest.testDoublePrimitiveAddition(com.google.gson.JsonArrayTest) (0 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomByteArraySerializer(com.google.gson.functional.CustomTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testJsonSerializer(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (1 ms)</li><li>com.google.gson.functional.MapTest.testComplexKeysSerialization(com.google.gson.functional.MapTest) (3 ms)</li><li>com.google.gson.functional.JsonAdapterSerializerDeserializerTest.testJsonSerializerDeserializerBasedJsonAdapterOnClass(com.google.gson.functional.JsonAdapterSerializerDeserializerTest) (0 ms)</li><li>com.google.gson.functional.CollectionTest.testPriorityQueue(com.google.gson.functional.CollectionTest) (3 ms)</li><li>com.google.gson.JsonArrayTest.testMixedPrimitiveAddition(com.google.gson.JsonArrayTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterPrecedenceTest.testStreamingHierarchicalFollowedByNonstreaming(com.google.gson.functional.TypeAdapterPrecedenceTest) (0 ms)</li><li>com.google.gson.JsonPrimitiveTest.testToString(com.google.gson.JsonPrimitiveTest) (1 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomAdapterInvokedForCollectionElementSerialization(com.google.gson.functional.CustomTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.TypeHierarchyAdapterTest.testRegisterSuperTypeFirst(com.google.gson.functional.TypeHierarchyAdapterTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDateDeserializationWithPattern(com.google.gson.functional.DefaultTypeAdaptersTest) (3 ms)</li><li>com.google.gson.JsonArrayTest.testCharPrimitiveAddition(com.google.gson.JsonArrayTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testAdapterCreatedByInstanceCreator(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (1 ms)</li><li>com.google.gson.JsonArrayTest.testStringPrimitiveAddition(com.google.gson.JsonArrayTest) (0 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testEnsureCustomSerializerNotInvokedForNullValues(com.google.gson.functional.CustomTypeAdaptersTest) (0 ms)</li><li>com.google.gson.JsonParserParameterizedTest.testParse[2](com.google.gson.JsonParserParameterizedTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testCustomSerializerForSpecificMapType(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.JsonArrayTest.testBooleanPrimitiveAddition(com.google.gson.JsonArrayTest) (0 ms)</li><li>com.google.gson.functional.DelegateTypeAdapterTest.testDelegateInvoked(com.google.gson.functional.DelegateTypeAdapterTest) (3 ms)</li><li>com.google.gson.functional.JsonAdapterSerializerDeserializerTest.testJsonAdapterNullSafe(com.google.gson.functional.JsonAdapterSerializerDeserializerTest) (0 ms)</li><li>com.google.gson.GsonTypeAdapterTest.testDeserializerForAbstractClass(com.google.gson.GsonTypeAdapterTest) (3 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomTypeAdapterDoesNotAppliesToSubClasses(com.google.gson.functional.CustomTypeAdaptersTest) (0 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomTypeAdapterAppliesToSubClassesSerializedAsBaseClass(com.google.gson.functional.CustomTypeAdaptersTest) (0 ms)</li><li>com.google.gson.JsonArrayTest.testIntegerPrimitiveAddition(com.google.gson.JsonArrayTest) (0 ms)</li><li>com.google.gson.functional.TypeAdapterPrecedenceTest.testStreamingFollowedByNonstreaming(com.google.gson.functional.TypeAdapterPrecedenceTest) (0 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testRegisterHierarchyAdapterForDate(com.google.gson.functional.CustomTypeAdaptersTest) (0 ms)</li><li>com.google.gson.JsonObjectTest.testPropertyWithQuotes(com.google.gson.JsonObjectTest) (0 ms)</li><li>com.google.gson.functional.JsonAdapterSerializerDeserializerTest.testJsonSerializerDeserializerBasedJsonAdapterOnFields(com.google.gson.functional.JsonAdapterSerializerDeserializerTest) (0 ms)</li><li>com.google.gson.JsonArrayTest.testSameAddition(com.google.gson.JsonArrayTest) (0 ms)</li><li>com.google.gson.functional.EnumTest.testEnumSubclassWithRegisteredTypeAdapter(com.google.gson.functional.EnumTest) (1 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnClassesTest.testJsonDeserializer(com.google.gson.functional.JsonAdapterAnnotationOnClassesTest) (0 ms)</li><li>com.google.gson.functional.Java17RecordTest.testFieldNamingStrategy(com.google.gson.functional.Java17RecordTest) (4 ms)</li><li>com.google.gson.ObjectTypeAdapterParameterizedTest.testReadWrite[4](com.google.gson.ObjectTypeAdapterParameterizedTest) (4 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDateStyleOverwritesPattern(com.google.gson.functional.DefaultTypeAdaptersTest) (4 ms)</li><li>com.google.gson.functional.ConcurrencyTest.testMultiThreadSerialization(com.google.gson.functional.ConcurrencyTest) (4 ms)</li><li>com.google.gson.GsonTypeAdapterTest.testTypeAdapterProperlyConvertsTypes(com.google.gson.GsonTypeAdapterTest) (1 ms)</li><li>com.google.gson.functional.TypeAdapterPrecedenceTest.testNonstreamingFollowedByNonstreaming(com.google.gson.functional.TypeAdapterPrecedenceTest) (1 ms)</li><li>com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest.testJsonDeserializer(com.google.gson.functional.JsonAdapterAnnotationOnFieldsTest) (0 ms)</li><li>com.google.gson.functional.ReadersWritersTest.testReadWriteTwoStrings(com.google.gson.functional.ReadersWritersTest) (0 ms)</li><li>com.google.gson.DefaultInetAddressTypeAdapterTest.testInetAddressSerializationAndDeserialization(com.google.gson.DefaultInetAddressTypeAdapterTest) (4 ms)</li><li>com.google.gson.functional.ReflectionAccessFilterTest.testBlockInaccessibleJava(com.google.gson.functional.ReflectionAccessFilterTest) (4 ms)</li><li>com.google.gson.functional.CustomDeserializerTest.testDefaultConstructorNotCalledOnObject(com.google.gson.functional.CustomDeserializerTest) (0 ms)</li><li>com.google.gson.functional.PrintFormattingTest.testJsonObjectWithNullValues(com.google.gson.functional.PrintFormattingTest) (0 ms)</li><li>com.google.gson.SubsetTest.write(com.google.gson.SubsetTest) (0 ms)</li><li>com.google.gson.JsonObjectTest.testToString(com.google.gson.JsonObjectTest) (0 ms)</li><li>com.google.gson.GsonBuilderTest.testModificationAfterCreate(com.google.gson.GsonBuilderTest) (3 ms)</li><li>com.google.gson.functional.StreamingTypeAdaptersTest.testNullSafe(com.google.gson.functional.StreamingTypeAdaptersTest) (5 ms)</li><li>com.google.gson.functional.ReflectionAccessFilterTest.testBlockInaccessibleJavaExtendingJdkClass(com.google.gson.functional.ReflectionAccessFilterTest) (5 ms)</li><li>com.google.gson.GsonBuilderTest.testExcludeFieldsWithModifiers(com.google.gson.GsonBuilderTest) (5 ms)</li><li>com.google.gson.JsonParserParameterizedTest.testParse[3](com.google.gson.JsonParserParameterizedTest) (0 ms)</li><li>com.google.gson.JsonParserParameterizedTest.testParse[1](com.google.gson.JsonParserParameterizedTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonTreeWriterTest.testNestedArray(com.google.gson.internal.bind.JsonTreeWriterTest) (0 ms)</li><li>com.google.gson.functional.CustomDeserializerTest.testDefaultConstructorNotCalledOnField(com.google.gson.functional.CustomDeserializerTest) (1 ms)</li><li>com.google.gson.JsonArrayTest.testToString(com.google.gson.JsonArrayTest) (0 ms)</li><li>com.google.gson.JsonParserParameterizedTest.testParse[4](com.google.gson.JsonParserParameterizedTest) (0 ms)</li><li>com.google.gson.JsonParserParameterizedTest.testParse[5](com.google.gson.JsonParserParameterizedTest) (0 ms)</li><li>com.google.gson.GsonTest.testNewBuilderModification(com.google.gson.GsonTest) (4 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDefaultDateSerializationUsingBuilder(com.google.gson.functional.DefaultTypeAdaptersTest) (6 ms)</li><li>com.google.gson.internal.bind.JsonTreeWriterTest.testNestedObject(com.google.gson.internal.bind.JsonTreeWriterTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonTreeWriterTest.testSerializeNullsFalse(com.google.gson.internal.bind.JsonTreeWriterTest) (0 ms)</li><li>com.google.gson.GsonBuilderTest.testSetDateFormatEmptyPattern(com.google.gson.GsonBuilderTest) (6 ms)</li><li>com.google.gson.functional.ExposeFieldsTest.testArrayWithOneNullExposeFieldObjectSerialization(com.google.gson.functional.ExposeFieldsTest) (7 ms)</li><li>com.google.gson.internal.bind.JsonTreeWriterTest.testLenientNansAndInfinities(com.google.gson.internal.bind.JsonTreeWriterTest) (0 ms)</li><li>com.google.gson.JsonParserParameterizedTest.testParse[0](com.google.gson.JsonParserParameterizedTest) (2 ms)</li><li>com.google.gson.internal.bind.JsonTreeWriterTest.testArray(com.google.gson.internal.bind.JsonTreeWriterTest) (1 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testParameterizedTypeWithCustomSerializer(com.google.gson.functional.ParameterizedTypesTest) (1 ms)</li><li>com.google.gson.functional.MapAsArrayTypeAdapterTest.testMapWithTypeVariableSerialization(com.google.gson.functional.MapAsArrayTypeAdapterTest) (0 ms)</li><li>com.google.gson.GsonTypeAdapterTest.testTypeAdapterThrowsException(com.google.gson.GsonTypeAdapterTest) (2 ms)</li><li>com.google.gson.internal.bind.JsonTreeWriterTest.testSerializeNullsTrue(com.google.gson.internal.bind.JsonTreeWriterTest) (0 ms)</li><li>com.google.gson.functional.ReflectionAccessFilterTest.testDontBlockAccessibleJava(com.google.gson.functional.ReflectionAccessFilterTest) (7 ms)</li><li>com.google.gson.functional.MapTest.testInterfaceTypeMapWithSerializer(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.internal.bind.DefaultDateTypeAdapterTest.testFormattingInEnUs(com.google.gson.internal.bind.DefaultDateTypeAdapterTest) (8 ms)</li><li>com.google.gson.internal.bind.JsonTreeWriterTest.testObject(com.google.gson.internal.bind.JsonTreeWriterTest) (1 ms)</li><li>com.google.gson.functional.CircularReferenceTest.testSelfReferenceArrayFieldSerialization(com.google.gson.functional.CircularReferenceTest) (8 ms)</li><li>com.google.gson.functional.CircularReferenceTest.testSelfReferenceCustomHandlerSerialization(com.google.gson.functional.CircularReferenceTest) (9 ms)</li><li>com.google.gson.functional.MapAsArrayTypeAdapterTest.testSerializeComplexMapWithTypeAdapter(com.google.gson.functional.MapAsArrayTypeAdapterTest) (1 ms)</li><li>com.google.gson.JsonParserTest.testParseMixedArray(com.google.gson.JsonParserTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonTreeWriterTest.testNameInArray(com.google.gson.internal.bind.JsonTreeWriterTest) (2 ms)</li><li>com.google.gson.functional.MapAsArrayTypeAdapterTest.testMultipleEnableComplexKeyRegistrationHasNoEffect(com.google.gson.functional.MapAsArrayTypeAdapterTest) (3 ms)</li><li>com.google.gson.functional.JsonTreeTest.testJsonTreeToString(com.google.gson.functional.JsonTreeTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDateSerializationWithDateStyle(com.google.gson.functional.DefaultTypeAdaptersTest) (10 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeZonedDateTimeWithZoneId(com.google.gson.functional.DefaultTypeAdaptersTest) (11 ms)</li><li>com.google.gson.JsonArrayTest.testFailedGetArrayValues(com.google.gson.JsonArrayTest) (3 ms)</li><li>com.google.gson.functional.RuntimeTypeAdapterFactoryFunctionalTest.testSubclassesAutomaticallySerialized(com.google.gson.functional.RuntimeTypeAdapterFactoryFunctionalTest) (1 ms)</li><li>com.google.gson.functional.FormattingStyleTest.testFormat(com.google.gson.functional.FormattingStyleTest) (13 ms)</li><li>com.google.gson.JsonParserParameterizedTest.testParse[7](com.google.gson.JsonParserParameterizedTest) (1 ms)</li><li>com.google.gson.internal.bind.DefaultDateTypeAdapterTest.testFormattingInFr(com.google.gson.internal.bind.DefaultDateTypeAdapterTest) (14 ms)</li><li>com.google.gson.functional.ReadersWritersTest.testReadWriteTwoObjects(com.google.gson.functional.ReadersWritersTest) (0 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testJavaTimeMonthDay(com.google.gson.functional.DefaultTypeAdaptersTest) (15 ms)</li><li>com.google.gson.JsonParserParameterizedTest.testParse[6](com.google.gson.JsonParserParameterizedTest) (2 ms)</li><li>com.google.gson.functional.CircularReferenceTest.testCircularSerialization(com.google.gson.functional.CircularReferenceTest) (15 ms)</li><li>com.google.gson.JsonParserTest.testReadWriteTwoObjects(com.google.gson.JsonParserTest) (3 ms)</li><li>com.google.gson.functional.PrintFormattingTest.testJsonObjectWithNullValuesSerialized(com.google.gson.functional.PrintFormattingTest) (15 ms)</li><li>com.google.gson.functional.TypeHierarchyAdapterTest.testTypeHierarchy(com.google.gson.functional.TypeHierarchyAdapterTest) (1 ms)</li><li>com.google.gson.functional.ReflectionAccessTest.testRestrictiveSecurityManager(com.google.gson.functional.ReflectionAccessTest) (33 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDefaultGregorianCalendarDeserialization(com.google.gson.functional.DefaultTypeAdaptersTest) (37 ms)</li><li>com.google.gson.JsonArrayTest.testEqualsNonEmptyArray(com.google.gson.JsonArrayTest) (36 ms)</li><li>com.google.gson.functional.DefaultTypeAdaptersTest.testDateSerializationWithStyle(com.google.gson.functional.DefaultTypeAdaptersTest) (111 ms)</li><li>com.google.gson.JsonParserTest.testParseEmptyWhitespaceInput(com.google.gson.JsonParserTest) (1 ms)</li><li>com.google.gson.JsonStreamParserTest.testParseTwoStrings(com.google.gson.JsonStreamParserTest) (0 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomAdapterInvokedForMapElementDeserialization(com.google.gson.functional.CustomTypeAdaptersTest) (0 ms)</li><li>com.google.gson.JsonStreamParserTest.testIterator(com.google.gson.JsonStreamParserTest) (0 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testEnsureCustomDeserializerNotInvokedForNullValues(com.google.gson.functional.CustomTypeAdaptersTest) (0 ms)</li><li>com.google.gson.JsonStreamParserTest.testNoSideEffectForHasNext(com.google.gson.JsonStreamParserTest) (0 ms)</li><li>com.google.gson.JsonParserTest.testLegacyStrict(com.google.gson.JsonParserTest) (0 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomDeserializerInvokedForPrimitives(com.google.gson.functional.CustomTypeAdaptersTest) (1 ms)</li><li>com.google.gson.JsonStreamParserTest.testCallingNextBeyondAvailableInput(com.google.gson.JsonStreamParserTest) (1 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomNestedDeserializers(com.google.gson.functional.CustomTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomByteArrayDeserializerAndInstanceCreator(com.google.gson.functional.CustomTypeAdaptersTest) (1 ms)</li><li>com.google.gson.functional.TreeTypeAdaptersTest.testDeserializeId(com.google.gson.functional.TreeTypeAdaptersTest) (1 ms)</li><li>com.google.gson.JsonParserTest.testParseUnquotedSingleWordStringFails(com.google.gson.JsonParserTest) (0 ms)</li><li>com.google.gson.JsonParserTest.testParseUnquotedMultiWordStringFails(com.google.gson.JsonParserTest) (0 ms)</li><li>com.google.gson.functional.ObjectTest.testAnonymousLocalClassesCustomDeserialization(com.google.gson.functional.ObjectTest) (1 ms)</li><li>com.google.gson.functional.ParameterizedTypesTest.testParameterizedTypesWithCustomDeserializer(com.google.gson.functional.ParameterizedTypesTest) (0 ms)</li><li>com.google.gson.functional.CustomDeserializerTest.testCustomDeserializerReturnsNullForArrayElementsForArrayField(com.google.gson.functional.CustomDeserializerTest) (0 ms)</li><li>com.google.gson.JsonParserTest.testParseEmptyString(com.google.gson.JsonParserTest) (1 ms)</li><li>com.google.gson.functional.NullObjectAndFieldTest.testCustomTypeAdapterPassesNullDeserialization(com.google.gson.functional.NullObjectAndFieldTest) (0 ms)</li><li>com.google.gson.functional.CustomDeserializerTest.testCustomDeserializerReturnsNullForArrayElements(com.google.gson.functional.CustomDeserializerTest) (0 ms)</li><li>com.google.gson.functional.UncategorizedTest.testReturningDerivedClassesDuringDeserialization(com.google.gson.functional.UncategorizedTest) (0 ms)</li><li>com.google.gson.functional.CustomDeserializerTest.testCustomDeserializerReturnsNullForTopLevelObject(com.google.gson.functional.CustomDeserializerTest) (0 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomDeserializers(com.google.gson.functional.CustomTypeAdaptersTest) (0 ms)</li><li>com.google.gson.JsonParserTest.testParseUnquotedStringArrayFails(com.google.gson.JsonParserTest) (0 ms)</li><li>com.google.gson.JsonParserTest.testParseReader(com.google.gson.JsonParserTest) (0 ms)</li><li>com.google.gson.JsonObjectTest.testReadPropertyWithEmptyStringName(com.google.gson.JsonObjectTest) (0 ms)</li><li>com.google.gson.functional.CustomDeserializerTest.testCustomDeserializerReturnsNull(com.google.gson.functional.CustomDeserializerTest) (1 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testEmptyObject(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testEmptyArray(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.JsonParserTest.testParseString(com.google.gson.JsonParserTest) (0 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.skipEndOfDocument[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.SubsetTest.read(com.google.gson.SubsetTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testEarlyClose(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.arrayOfArrays[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testNestedArrays(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testNulls(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testLenientNansAndInfinities(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.skipArrayElements[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.skipNestedStructures[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testNestedObjects(com.google.gson.internal.bind.JsonElementReaderTest) (1 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testBooleans(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.skipArrayEnd[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.skipObjectEnd[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testArray(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testStringsFromNumbers(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.skipObjectValues[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testStrings(com.google.gson.internal.bind.JsonElementReaderTest) (1 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.skipObjectNames[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.arrayOfObjects[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.functional.CustomDeserializerTest.testJsonTypeFieldBasedDeserialization(com.google.gson.functional.CustomDeserializerTest) (1 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.arrayPath[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.objectOfObjects[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testObject(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.objectPath[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (0 ms)</li><li>com.google.gson.functional.MapTest.testMapNamePromotionWithJsonElementReader(com.google.gson.functional.MapTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testSkipValue(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testNumbersFromStrings(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testNumbers(com.google.gson.internal.bind.JsonElementReaderTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testStrictNansAndInfinities(com.google.gson.internal.bind.JsonElementReaderTest) (2 ms)</li><li>com.google.gson.functional.JsonParserTest.testChangingCustomTreeAndDeserializing(com.google.gson.functional.JsonParserTest) (0 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testNextJsonElement(com.google.gson.internal.bind.JsonElementReaderTest) (3 ms)</li><li>com.google.gson.stream.JsonReaderPathTest.path[OBJECT_READER](com.google.gson.stream.JsonReaderPathTest) (1 ms)</li><li>com.google.gson.functional.CustomTypeAdaptersTest.testCustomAdapterInvokedForCollectionElementDeserialization(com.google.gson.functional.CustomTypeAdaptersTest) (23 ms)</li><li>com.google.gson.internal.bind.JsonElementReaderTest.testWrongType(com.google.gson.internal.bind.JsonElementReaderTest) (5 ms)</li><li>com.google.gson.JsonParserTest.testParseDeeplyNestedArrays(com.google.gson.JsonParserTest) (34 ms)</li><li>com.google.gson.JsonParserTest.testParseDeeplyNestedObjects(com.google.gson.JsonParserTest) (36 ms)</li><li>com.google.gson.MixedStreamTest.testWriteNulls(com.google.gson.MixedStreamTest) (0 ms)</li><li>com.google.gson.functional.CustomSerializerTest.testSerializerReturnsNull(com.google.gson.functional.CustomSerializerTest) (1 ms)</li><li>com.google.gson.functional.CustomSerializerTest.testSubClassSerializerInvokedForBaseClassFieldsHoldingSubClassInstances(com.google.gson.functional.CustomSerializerTest) (0 ms)</li><li>com.google.gson.functional.CustomSerializerTest.testBaseClassSerializerInvokedForBaseClassFieldsHoldingSubClassInstances(com.google.gson.functional.CustomSerializerTest) (0 ms)</li><li>com.google.gson.functional.CustomSerializerTest.testBaseClassSerializerInvokedForBaseClassFields(com.google.gson.functional.CustomSerializerTest) (1 ms)</li><li>com.google.gson.functional.CustomSerializerTest.testSubClassSerializerInvokedForBaseClassFieldsHoldingArrayOfSubClassInstances(com.google.gson.functional.CustomSerializerTest) (0 ms)</li><li>com.google.gson.JsonStreamParserTest.testIncompleteInput(com.google.gson.JsonStreamParserTest) (0 ms)</li><li>com.google.gson.JsonParserTest.testParseInvalidJson(com.google.gson.JsonParserTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.15.3
+
+</body>
+</html>
