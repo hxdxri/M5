@@ -77,3 +77,53 @@ index 7918efc6..eb694fb8 100644
 +    </profile>
    </profiles>
  </project>
+diff --git a/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java b/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java
+index 24f15cfb..76032365 100644
+--- a/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java
++++ b/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java
+@@ -2199,6 +2199,45 @@ public final class JsonReaderTest {
+     }
+   }
+ 
++  /**
++   * Experiment 3, Mutant A — Kill RemoveConditionalMutator_EQUAL_ELSE on nextInt() line 1330.
++   * The mutant replaces `p == PEEKED_SINGLE_QUOTED` with `false`, which prevents single-quoted
++   * string values from being parsed as integers in lenient mode. This test exercises that exact
++   * path by reading a single-quoted integer value with nextInt().
++   */
++  @Test
++  public void testNextIntFromSingleQuotedString() throws IOException {
++    JsonReader reader = new JsonReader(reader("['123']"));
++    reader.setStrictness(Strictness.LENIENT);
++    reader.beginArray();
++    assertThat(reader.nextInt()).isEqualTo(123);
++    reader.endArray();
++  }
++
++  /**
++   * Experiment 3, Mutant B — Kill VoidMethodCallMutator on close() line 1372.
++   * The mutant removes the call to in.close(), so the underlying Reader is never closed.
++   * Existing tests only verify that the JsonReader state becomes CLOSED; they never verify
++   * that the wrapped Reader's close() method was actually invoked. This test uses a custom
++   * Reader subclass that tracks whether close() was called.
++   */
++  @Test
++  public void testCloseClosesUnderlyingReader() throws IOException {
++    final boolean[] closeCalled = {false};
++    Reader inner =
++        new StringReader("[1, 2, 3]") {
++          @Override
++          public void close() {
++            closeCalled[0] = true;
++            super.close();
++          }
++        };
++    JsonReader reader = new JsonReader(inner);
++    reader.beginArray();
++    reader.close();
++    assertThat(closeCalled[0]).isTrue();
++  }
++
+   /** Returns a reader that returns one character at a time. */
+   private static Reader reader(String s) {
+     /* if (true) */ return new StringReader(s);

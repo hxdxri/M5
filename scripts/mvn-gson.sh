@@ -3,7 +3,7 @@ set -eu
 
 ROOT=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 GSON_MODULE="$ROOT/gson/gson"
-JAVA_HOME=$(/usr/libexec/java_home -v 21)
+JAVA_HOME=$(/usr/libexec/java_home -v 17)
 
 export JAVA_HOME
 export PATH="$JAVA_HOME/bin:$PATH"
