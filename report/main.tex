@@ -21,26 +21,26 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.6em}
 
-\title{Tech Titans\\Milestone 5 Report\\Incremental Draft: Experiments 1 and 2}
+\title{Tech Titans\\Milestone 5 Report\\Incremental Draft: Experiments 1--3}
 \author{CMPT 470/816\\Assigned Repository: Gson}
 \date{March 30, 2026}
 
 \begin{document}
 \maketitle
 
-\textbf{Draft scope.} This report revision documents only Milestone 5 Experiments 1 and 2 using recorded local runs. Experiments 3--5 will be added in later revisions; no placeholder results are claimed here.
+\textbf{Draft scope.} This report revision documents Milestone 5 Experiments 1, 2, and 3 using recorded local runs. Experiments 4--5 will be added in later revisions; no placeholder results are claimed here.
 
 \section{Introduction}
 Mutation testing measures whether a test suite can detect seeded faults rather than merely execute the corresponding lines. For Milestone 5, our goal is to use PIT on Gson to assess the quality of tests around a coherent parsing and streaming subsystem, document the setup process, and establish a reproducible baseline before deeper surviving-mutant analysis in later experiments.
 
-This draft focuses on two questions. First, can PIT be configured reproducibly on Gson with a justified and non-trivial target scope? Second, once that scope is fixed, what does the first full mutation baseline reveal about the current test suite? The emphasis in this revision is therefore on configuration, scope calibration, and accurate baseline reporting from real runs.
+This draft focuses on three questions. First, can PIT be configured reproducibly on Gson with a justified and non-trivial target scope? Second, once that scope is fixed, what does the first full mutation baseline reveal about the current test suite? Third, can targeted test additions kill selected surviving mutants and measurably improve the baseline score? The emphasis in this revision is therefore on configuration, scope calibration, accurate baseline reporting, and focused surviving-mutant analysis.
 
 \section{Background}
 Mutation testing works by generating small source-level or bytecode-level changes, running the existing tests, and classifying each mutant as killed, survived, not covered, or timed out. Unlike line coverage, mutation results say something about the strength of the assertions and the sensitivity of the tests to behavior changes. A project can execute nearly all lines in a subsystem and still allow important mutants to survive.
 
 PIT is a practical Java mutation testing tool because it performs coverage analysis first and only runs tests relevant to each mutant. It also produces HTML and XML reports that expose both high-level project metrics and per-mutant details. This matters for Gson because the selected scope contains both deeply stateful parsing code and smaller adapter or bridge classes. Those classes are all part of one feature area, but they differ substantially in how much mutatable logic they contain.
 
-Equivalent mutants remain a known limitation. A mutant can survive either because tests are weak or because the mutated program is behaviorally indistinguishable from the original. Distinguishing those cases is part of later milestone work, but even in Experiments 1 and 2 it is important to avoid over-interpreting raw survival counts.
+Equivalent mutants remain a known limitation. A mutant can survive either because tests are weak or because the mutated program is behaviorally indistinguishable from the original. Distinguishing those cases is part of later milestone work, but even in Experiments 1--3 it is important to avoid over-interpreting raw survival counts.
 
 \section{Experimental Setup}
 \subsection{Dataset Declaration}
@@ -188,20 +188,265 @@ Operator & Generated & Killed & Survived & Timed Out & No Cov. & Kill Rate \\
 
 The operator breakdown highlights two patterns. First, most of the mutant volume comes from control-flow and arithmetic rewrites inside the reader/writer state machines, which is consistent with the scope selection. Second, \texttt{NullReturnValsMutator} has the weakest kill rate among the four largest operators, which suggests that return-value assertions around some bridge or fluent API paths are weaker than branch assertions in the core parsing logic.
 
+\subsection{Experiment 3: Deep Surviving Mutant Analysis}
+Experiment 3 selects three surviving mutants from the Experiment 2 baseline for detailed investigation. Mutant A comes from the most frequent surviving operator, Mutant B comes from a different operator, and Mutant C is the one we suspect may be equivalent. Two mutants are killable and are paired with new tests; the third is analyzed as likely equivalent.
+
+\subsubsection{Surviving-mutant frequency by operator}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lr}
+\toprule
+Operator & Surviving Count \\
+\midrule
+\texttt{RemoveConditionalMutator\_EQUAL\_ELSE} & 39 \\
+\texttt{MathMutator} & 30 \\
+\texttt{NullReturnValsMutator} & 25 \\
+\texttt{ConditionalsBoundaryMutator} & 21 \\
+\texttt{VoidMethodCallMutator} & 7 \\
+\texttt{RemoveConditionalMutator\_ORDER\_ELSE} & 6 \\
+\texttt{PrimitiveReturnsMutator} & 2 \\
+\texttt{EmptyObjectReturnValsMutator} & 1 \\
+\texttt{IncrementsMutator} & 1 \\
+\bottomrule
+\end{tabular}
+\caption{Surviving mutant frequency by operator in the Experiment 2 baseline.}
+\end{table}
+
+\subsubsection{Mutant A: \texttt{RemoveConditionalMutator\_EQUAL\_ELSE} on \texttt{nextInt()} line 1334}
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{0.24\linewidth}X}
+\toprule
+Field & Value \\
+\midrule
+Class & \texttt{com.google.gson.stream.JsonReader} \\
+Method & \texttt{nextInt()} \\
+Line & 1334 \\
+Operator & \texttt{RemoveConditionalMutator\_EQUAL\_ELSE} \\
+Description & removed conditional; replaced equality check with \texttt{false} \\
+Tests run against it & 11 (all passed; mutant survived) \\
+\bottomrule
+\end{tabularx}
+\caption{Mutant A location and operator details.}
+\end{table}
+
+\paragraph{Original vs. mutated code.}
+The original code is:
+\begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
+peekedString = nextQuotedValue(p == PEEKED_SINGLE_QUOTED ? '\'' : '"');
+\end{lstlisting}
+
+The mutant replaces the equality check \texttt{p == PEEKED\_SINGLE\_QUOTED} with \texttt{false}, so the ternary always selects \texttt{'"'} and ignores single-quoted input.
+
+\begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
+peekedString = nextQuotedValue(false ? '\'' : '"');
+// equivalent behavior observed by PIT mutant:
+peekedString = nextQuotedValue('"');
+\end{lstlisting}
+
+\paragraph{M1. Survival explanation.}
+The existing test suite does not call \texttt{nextInt()} on a single-quoted string value. The tests around \texttt{JsonReaderTest.java} exercise unquoted numeric literals and double-quoted numeric strings, but none of them set \texttt{Strictness.LENIENT} and pass an input like \texttt{['123']}. Because PIT's mutant changes the conditional on line 1334 specifically, the path that requires the single-quoted delimiter \texttt{'\''} is never exercised.
+
+\paragraph{M2. Semantic impact assessment.}
+A concrete runtime scenario is:
+\begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
+JsonReader reader = new JsonReader(new StringReader("['123']"));
+reader.setStrictness(Strictness.LENIENT);
+reader.beginArray();
+int value = reader.nextInt();
+\end{lstlisting}
+
+With the original code, \texttt{nextQuotedValue('\\'')} reads the characters between the single quotes and returns \texttt{123}. With the mutant, \texttt{nextQuotedValue('"')} searches for a closing double quote instead of a single quote, so parsing fails or produces the wrong value. The observable behavior changes from returning \texttt{123} to throwing a parse/number-format failure.
+
+\paragraph{M3. Killability verdict.}
+This mutant is \textbf{killable -- missing test}. No test reaches the single-quoted lenient path. The added test is:
+\begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
+@Test
+public void testNextIntFromSingleQuotedString() throws IOException {
+  JsonReader reader = new JsonReader(reader("['123']"));
+  reader.setStrictness(Strictness.LENIENT);
+  reader.beginArray();
+  assertThat(reader.nextInt()).isEqualTo(123);
+  reader.endArray();
+}
+\end{lstlisting}
+
+This test is sufficient because it asserts the exact return value from the previously untested single-quoted branch. PIT confirmation from the follow-up run reports line 1334 as killed by \texttt{testNextIntFromSingleQuotedString}.
+
+\subsubsection{Mutant B: \texttt{VoidMethodCallMutator} on \texttt{close()} line 1372}
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{0.24\linewidth}X}
+\toprule
+Field & Value \\
+\midrule
+Class & \texttt{com.google.gson.stream.JsonReader} \\
+Method & \texttt{close()} \\
+Line & 1372 \\
+Operator & \texttt{VoidMethodCallMutator} \\
+Description & removed call to \texttt{java/io/Reader::close} \\
+Tests run against it & 7 (all passed; mutant survived) \\
+\bottomrule
+\end{tabularx}
+\caption{Mutant B location and operator details.}
+\end{table}
+
+\paragraph{Original vs. mutated code.}
+The original code is:
+\begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
+@Override
+public void close() throws IOException {
+  peeked = PEEKED_NONE;
+  stack[0] = JsonScope.CLOSED;
+  stackSize = 1;
+  in.close();
+}
+\end{lstlisting}
+
+Mutant code: The call to in.close() is completely removed. The JsonReader sets its own state to CLOSED but never delegates close() to the underlying Reader.
+
+\paragraph{M1. Survival explanation.}
+The only covering test in the suite is \texttt{testPrematurelyClosed()}, which verifies only that the \texttt{JsonReader} state changes to closed and that subsequent operations throw \texttt{IllegalStateException}. It does not observe whether the wrapped \texttt{Reader.close()} method is actually invoked, so the mutant survives all seven covering tests.
+
+\paragraph{M2. Semantic impact assessment.}
+A concrete runtime scenario is:
+\begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
+FileInputStream fis = new FileInputStream("data.json");
+InputStreamReader isr = new InputStreamReader(fis);
+JsonReader reader = new JsonReader(isr);
+reader.beginObject();
+reader.close();
+\end{lstlisting}
+
+With the original code, closing the \texttt{JsonReader} propagates to the underlying stream and releases the file descriptor. With the mutant, the underlying stream stays open. The difference is observable if the caller checks that the wrapped reader was closed or attempts to use the wrapped stream after closing.
+
+\paragraph{M3. Killability verdict.}
+This mutant is \textbf{killable -- weak assertion}. The existing test covers the method but not the side effect on the wrapped reader. The added test is:
+\begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
+@Test
+public void testCloseClosesUnderlyingReader() throws IOException {
+  final boolean[] closeCalled = {false};
+  Reader inner =
+    new StringReader("[1, 2, 3]") {
+      @Override
+      public void close() {
+      closeCalled[0] = true;
+      super.close();
+      }
+    };
+  JsonReader reader = new JsonReader(inner);
+  reader.beginArray();
+  reader.close();
+  assertThat(closeCalled[0]).isTrue();
+}
+\end{lstlisting}
+
+This assertion is sufficient because it directly checks the delegated close behavior that the mutant removes. PIT confirmation from the follow-up run reports line 1372 as killed by \texttt{testCloseClosesUnderlyingReader}.
+
+\subsubsection{Mutant C: \texttt{ConditionalsBoundaryMutator} on \texttt{fillBuffer()} line 1504}
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{0.24\linewidth}X}
+\toprule
+Field & Value \\
+\midrule
+Class & \texttt{com.google.gson.stream.JsonReader} \\
+Method & \texttt{fillBuffer(int)} \\
+Line & 1504 \\
+Operator & \texttt{ConditionalsBoundaryMutator} \\
+Description & changed conditional boundary on \texttt{limit > 0} \\
+Tests run against it & 707 (all passed; mutant survived) \\
+\bottomrule
+\end{tabularx}
+\caption{Mutant C location and operator details.}
+\end{table}
+
+\paragraph{Original vs. mutated code.}
+The relevant original code is:
+\begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
+while ((total = in.read(buffer, limit, buffer.length - limit)) != -1) {
+  limit += total;
+
+  if (lineNumber == 0 && lineStart == 0 && limit > 0 && buffer[0] == '\ufeff') {
+    pos++;
+    lineStart++;
+    minimum++;
+  }
+
+  if (limit >= minimum) {
+    return true;
+  }
+}
+\end{lstlisting}
+
+The mutant changes the BOM guard from \texttt{limit > 0} to \texttt{limit >= 0}.
+
+\paragraph{M1. Survival explanation.}
+The mutated condition sits inside a loop that only executes after \texttt{Reader.read(...)} returns a value other than \texttt{-1}. A successful read returns at least one character when the length argument is positive, and the buffer length available in this method is positive when the loop executes. Therefore the code reaches line 1504 only with \texttt{limit >= 1}. Because the existing suite does not introduce an invalid reader that violates the Java contract, the surviving tests all observe the same behavior.
+
+\paragraph{M2. Semantic impact assessment.}
+No observable difference exists under any contract-compliant input. The program state guarantees that \texttt{limit} is already positive when the boundary check runs, so \texttt{limit > 0} and \texttt{limit >= 0} are equivalent at the mutation site. A counter-example using a custom reader that returns 0 characters was considered, but the Java \texttt{Reader.read(char[], int, int)} contract does not permit that return value when the length argument is positive.
+
+\paragraph{M3. Killability verdict.}
+This mutant is \textbf{likely equivalent}. The mutation changes the syntax of the comparison but not the reachable semantics of the method. The evidence table is:
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{0.28\linewidth}X}
+\toprule
+Criterion & Evidence \\
+\midrule
+Mutated operator/statement & \texttt{ConditionalsBoundaryMutator} changed \texttt{limit > 0} to \texttt{limit >= 0} at line 1504 in \texttt{fillBuffer(int)} \\
+Data flow context & \texttt{limit} is updated by \texttt{limit += total} after a successful \texttt{Reader.read(...)} call, so the value at the mutation site is already positive \\
+Why output is unchanged & The boundary case \texttt{limit == 0} is unreachable, so the two comparisons are behaviorally identical in reachable states \\
+Counter-example attempted & A custom reader returning 0 characters was considered, but it does not satisfy the Java reader contract for a positive requested length \\
+Verdict & \textbf{Likely equivalent} \\
+\bottomrule
+\end{tabularx}
+\caption{Equivalent-mutant evidence table for Mutant C.}
+\end{table}
+
+\paragraph{Score impact summary.}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Configuration & Mutants & Killed & Survived & Mutation Score \\
+\midrule
+Experiment 2 baseline & 945 & 786 & 132 & 85.6\% \\
+After Experiment 3 tests & 957 & 804 & 130 & 86.1\% \\
+\bottomrule
+\end{tabular}
+\caption{Score impact after Experiment 3 targeted test additions. Mutation score is computed as killed / (killed + survived).}
+\end{table}
+
+The targeted interventions killed the two selected non-equivalent survivors and improved the milestone-formula mutation score from 85.6\% to 86.1\%. The total generated mutant count changed from 945 to 957 across runs, which is expected because PIT regenerates mutants per run and test changes can alter coverage and mutant reachability.
+
+\paragraph{PIT report excerpt.}
+In the follow-up PIT run, the HTML/XML report records line 1334 as killed by \texttt{testNextIntFromSingleQuotedString} and line 1372 as killed by \texttt{testCloseClosesUnderlyingReader}. The equivalent Mutant C remains surviving because no valid test input can produce a reachable \texttt{limit == 0} state at the mutation site.
+
 \section{Discussion}
 The full baseline largely confirmed the pre-run hypothesis. The selected Gson subsystem has very high line coverage and a strong overall mutation score, which indicates that the existing test suite is not merely executing code but is detecting many seeded faults. That is especially clear in the streaming layer, where \texttt{JsonReader} and \texttt{JsonWriter} account for most mutants and are still tested strongly.
 
 At the same time, the calibration step mattered. The original streaming-only selection was coherent but too narrow in effective mutatable surface because several selected files were trivial under PIT's default mutators. Expanding to adjacent parser and tree-bridge classes preserved the architectural focus while improving experimental value. The final 4:09 runtime is much more appropriate for the milestone than the 55-second smoke run.
 
-The results also show why mutation testing gives a different picture from coverage alone. Even with 96\% mutated-class line coverage, 132 mutants survived in the final baseline. That gap is exactly why later experiments need to inspect surviving mutants rather than stop at the summary numbers. For now, the baseline already points to promising areas for deeper analysis: return values, arithmetic/state transitions, and conditional rewrites in tree-bridge or parser-edge behavior.
+The results also show why mutation testing gives a different picture from coverage alone. Even with 96\% mutated-class line coverage, 132 mutants survived in the Experiment 2 baseline. Experiment 3 then demonstrated that some of these survivors were killable with targeted tests that strengthened specific behavioral assertions. At the same time, the likely-equivalent \texttt{fillBuffer} mutant illustrates that not all surviving mutants indicate weak tests.
+
+Together, Experiments 2 and 3 provide a clearer quality signal: the suite is already strong at subsystem level, still has actionable assertion gaps in edge-case semantics, and includes a smaller set of survivors that are better interpreted as likely equivalent rather than missing-test defects.
 
 \section{Lessons Learned}
-Three lessons are already clear from Experiments 1 and 2. First, scope selection must be guided by mutatable logic rather than raw source lines alone. Second, a subsystem-focused scope can stay small enough to run repeatedly while still generating nearly a thousand mutants if the selected classes actually contain branching behavior. Third, high coverage by itself would have overstated test adequacy; the surviving mutants show that substantial room for improvement remains even in a well-tested library.
+Four lessons are clear from Experiments 1--3. First, scope selection must be guided by mutatable logic rather than raw source lines alone. Second, a subsystem-focused scope can stay small enough to run repeatedly while still generating nearly a thousand mutants if the selected classes actually contain branching behavior. Third, high coverage by itself can overstate adequacy; surviving mutants expose behavior not yet strongly asserted. Fourth, surviving-mutant triage is essential: targeted tests can eliminate real weaknesses, while explicit equivalent-mutant analysis avoids misclassifying unreachable semantic differences as test defects.
 
 \section{Conclusion}
-For this selected Gson subsystem, PIT setup was reproducible and the final baseline produced a useful mutation-testing workload: 945 mutants, 85.6\% mutation score by the milestone formula, 86\% PIT test strength, 96\% line coverage, and a 4:09 wall-clock runtime. These results suggest that mutation testing is practical and informative for a production Java project when the scope is chosen as a coherent feature slice with meaningful logic and a runtime in the low-minute range.
+For this selected Gson subsystem, PIT setup was reproducible and produced a useful mutation-testing workflow across three experiments. The Experiment 2 baseline yielded 945 mutants with an 85.6\% mutation score by the milestone formula, 86\% PIT test strength, 96\% line coverage, and a 4:09 wall-clock runtime. Experiment 3 then added two targeted tests that killed selected surviving mutants and improved the mutation score to 86.1\% (804 killed, 130 survived, out of 957 generated mutants in the rerun).
 
-The next report revisions will build on this baseline by analyzing specific surviving mutants, evaluating operator effectiveness in more depth, and measuring score sensitivity under targeted test changes. Those later experiments will reuse the same repository and the same final target scope documented here.
+These results show that mutation testing is practical and informative for a production Java project when the scope is chosen as a coherent feature slice with meaningful logic and a runtime in the low-minute range. The next report revisions will build on this foundation with Experiment 4 and Experiment 5 analyses using the same repository and target scope.
 
 \appendix
 \section{PIT Configuration Excerpt}
@@ -272,6 +517,8 @@ The next report revisions will build on this baseline by analyzing specific surv
   \item PIT smoke reports: \url{artifacts/pit/smoke/index.html} and \url{artifacts/pit/smoke/mutations.xml}
   \item PIT baseline log: \url{logs/pit-baseline-docker.log}
   \item PIT baseline reports: \url{artifacts/pit/baseline/index.html} and \url{artifacts/pit/baseline/mutations.xml}
+  \item PIT Experiment 3 reports: \url{artifacts/pit/experiment3/index.html} and \url{artifacts/pit/experiment3/mutations.xml}
+  \item Experiment 3 analysis notes: \url{docs/Experiment3-report-1.md}
   \item PIT Maven profile: \url{gson/gson/pom.xml}
 \end{itemize}
 
