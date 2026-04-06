@@ -431,6 +431,101 @@ The targeted interventions killed the two selected non-equivalent survivors and 
 \paragraph{PIT report excerpt.}
 In the follow-up PIT run, the HTML/XML report records line 1334 as killed by \texttt{testNextIntFromSingleQuotedString} and line 1372 as killed by \texttt{testCloseClosesUnderlyingReader}. The equivalent Mutant C remains surviving because no valid test input can produce a reachable \texttt{limit == 0} state at the mutation site.
 
+\subsection{Experiment 4: Mutation Operator Effectiveness}
+
+\subsubsection{Operator Kill Rate Ranking}
+
+Ranked all mutation operators that generated at least 10 mutants by their kill rate. These are the top 5 mutation operators
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Rank & Operator & Generated & Killed & Survived & No Cov. & Kill Rate \\
+\midrule
+1 & \texttt{IncrementsMutator} & 14 & 14 & 0 & 0 & 100\% \\
+2 & \texttt{BooleanTrueReturnValsMutator} & 12 & 12 & 0 & 0 & 100\% \\
+3 & \texttt{EmptyObjectReturnValsMutator} & 17 & 15 & 0 & 2 & 100\% \\
+4 & \texttt{PrimitiveReturnsMutator} & 43 & 41 & 2 & 0 & 95.3\% \\
+5 & \texttt{VoidMethodCallMutator} & 131 & 119 & 7 & 4 & 94.4\% \\
+\bottomrule
+\end{tabular}
+\caption{Top 5 mutation operators by kill rate in the Experiment 2 baseline.}
+\end{table}
+
+The top five operators all had strong kill rates. The tests in this scope are good at catching changes to boolean values, increments, and void method calls, which is reflected in the high kill rates for those operator types.
+
+\subsubsection{Two Weakest Operators}
+
+The two operators with the lowest kill rates showed the clearest gaps in the test suite.
+
+\paragraph{1. ConditionalsBoundaryMutator : 60.4\% kill rate.}
+
+This operator makes small changes to boundary conditions, like changing \texttt{>} to \texttt{>=}. It had the lowest kill rate in the entire run, with 21 out of 54 mutants surviving.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{0.24\linewidth}X}
+\toprule
+Field & Value \\
+\midrule
+Class & \texttt{com.google.gson.stream.JsonReader} \\
+Method & \texttt{consumeNonExecutePrefix} \\
+Line & 1840 \\
+Original & \texttt{if (pos + 5 > limit \&\& !fillBuffer(5))} \\
+Mutated & \texttt{if (pos + 5 >= limit \&\& !fillBuffer(5))} \\
+\bottomrule
+\end{tabularx}
+\caption{Surviving mutant example for ConditionalsBoundaryMutator.}
+\end{table}
+
+This mutant survived because no test creates a scenario where \texttt{pos + 5} equals \texttt{limit} exactly. The difference between \texttt{>} and \texttt{>=} only matters at that one specific value, and the existing tests never hit it. The tests cover general parsing behavior but not precise buffer boundary values.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/exp4-mutant1-boundary.png}
+\caption{PIT HTML report showing surviving ConditionalsBoundaryMutator mutant at JsonReader line 1840.}
+\end{figure}
+
+\paragraph{2. NullReturnValsMutator: 68.4\% kill rate.}
+
+This operator replaces return values with \texttt{null}. It had the second lowest kill rate, with 25 out of 85 mutants surviving.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{0.24\linewidth}X}
+\toprule
+Field & Value \\
+\midrule
+Class & \texttt{com.google.gson.stream.JsonWriter} \\
+Method & \texttt{beginObject} \\
+Line & 431 \\
+Original & \texttt{return openScope(EMPTY\_OBJECT, '\{');} \\
+Mutated & returns \texttt{null} instead of the \texttt{JsonWriter} object \\
+\bottomrule
+\end{tabularx}
+\caption{Surviving mutant example for NullReturnValsMutator.}
+\end{table}
+
+This mutant survived because \texttt{beginObject()} returns the writer object to allow method chaining, but no test actually checks that return value. The tests just call the method and keep going, so returning \texttt{null} makes no difference to any assertion. This same pattern shows up across other methods in \texttt{JsonWriter}, which is why so many of these mutants survived.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/exp4-mutant2-null.png}
+\caption{PIT HTML report showing surviving NullReturnValsMutator mutant at JsonWriter line 431.}
+\end{figure}
+
+\subsubsection{Cost-Benefit: All Operators vs.\ Selective Subset}
+
+Running all default operators generated 945 mutants and took about 4 minutes and 9 seconds. That is a reasonable runtime for this scope. That said, just 5 operators produced over 83\% of all mutants, and the operators that hit 100\% kill rates did not reveal anything new to fix.
+
+The most useful operators were the weakest ones. \texttt{ConditionalsBoundaryMutator} and \texttt{NullReturnValsMutator} pointed to real gaps that are still worth addressing, as seen in the modest score improvement from 85.6\% to 86.1\% after Experiment 3.
+
+Selective mutation testing makes more sense when the project is large and runtimes exceed 30 minutes, when the goal is finding and fixing test gaps rather than just measuring coverage, or when re-running PIT after changes where some operators are already at 100\%. For this project the runtime was short enough that running everything made sense, but on a larger codebase focusing on the weakest operators would save time while still finding the most important issues.
+
 \section{Discussion}
 The full baseline largely confirmed the pre-run hypothesis. The selected Gson subsystem has very high line coverage and a strong overall mutation score, which indicates that the existing test suite is not merely executing code but is detecting many seeded faults. That is especially clear in the streaming layer, where \texttt{JsonReader} and \texttt{JsonWriter} account for most mutants and are still tested strongly.
 
