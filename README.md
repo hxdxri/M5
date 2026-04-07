@@ -1,13 +1,35 @@
 # M5
 CMPT 470 Milestone 5 workspace for Tech Titans on the Gson repository.
 
-This workspace now contains:
+## Folder structure
 
-- the assignment PDFs and prior milestone report at the root
-- the upstream `google/gson` repository as a Git submodule in [`gson`](/Users/haidari/Desktop/M5/gson)
-- a tracked patch for the Gson PIT changes in [`patches/gson-milestone5.patch`](/Users/haidari/Desktop/M5/patches/gson-milestone5.patch)
-- helper scripts in [`scripts`](/Users/haidari/Desktop/M5/scripts)
-- setup notes in [`docs/M5-Foundation.md`](/Users/haidari/Desktop/M5/docs/M5-Foundation.md)
+```
+M5/
+├── Tech_Titans_Milestone5_report.pdf   # final report (PDF)
+├── Milestone5.pdf                      # assignment description
+├── Milestone5_PIT_Guide.pdf            # PIT guide from the assignment
+├── TechTitans_Milestone4_AI_Contribution.txt
+├── report/                             # latex drafts 
+│   ├── main.tex
+│   ├── main.pdf
+│   └── figures/
+├── artifacts/
+│   └── pit/                            # PIT mutation-testing results
+│       ├── baseline/                   # baseline run (unmodified test suite)
+│       ├── experiment3/                # Experiment 3 results
+│       ├── experiment5-3added/         # Experiment 5 – 3 tests added
+│       ├── experiment5-5removed/       # Experiment 5 – 5 tests removed
+│       ├── investigate-*/              # exploratory / investigative runs
+│       ├── smoke/                      # quick smoke-check results
+│       └── history/                    # incremental-analysis history files
+├── logs/                               # console logs from PIT & Maven runs
+├── gson/                               # upstream google/gson (Git submodule)
+├── patches/
+│   └── gson-milestone5.patch           # tracked patch for Gson PIT changes
+├── scripts/                            # helper scripts (build, PIT, Docker)
+└── docs/                               # working notes and drafts
+    └── M5-Foundation.md
+```
 
 Quick start:
 
