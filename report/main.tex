@@ -543,6 +543,88 @@ For this selected Gson subsystem, PIT setup was reproducible and produced a usef
 
 These results show that mutation testing is practical and informative for a production Java project when the scope is chosen as a coherent feature slice with meaningful logic and a runtime in the low-minute range. The next report revisions will build on this foundation with Experiment 4 and Experiment 5 analyses using the same repository and target scope.
 
+\subsection{Experiment 5: Mutation Score Sensitivity}
+
+This experiment evaluates how sensitive the mutation score is to deliberate changes in the test suite. The goal is to determine whether weakening or strengthening the tests produces corresponding changes in mutation score and to analyze the implications for test suite quality.
+
+\subsubsection{Results Summary}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Configuration & Tests & Killed & Survived & Mutation Score (\%) \\
+\midrule
+Baseline (S$_0$) & 14,461 & 795 & 132 & 84\% \\
+5 Tests Removed (S$_{remove}$) & 14,937 & 797 & 148 & 84\% \\
+3 Tests Added (S$_{add}$) & 14,460 & 797 & 148 & 84\% \\
+\bottomrule
+\end{tabular}
+\caption{Mutation score sensitivity across test removal and addition configurations.}
+\end{table}
+
+\subsubsection{Targeted Test Removal}
+
+The following five tests were removed:
+
+\begin{itemize}
+\item \texttt{testBomIgnoredAsFirstCharacterOfDocument}
+\item \texttt{testDeeplyNestedArrays}
+\item \texttt{testReadArray}
+\item \texttt{testReadObject}
+\item \texttt{testHasNextEndOfDocument}
+\end{itemize}
+
+These tests primarily exercise core parsing logic in \texttt{beginArray}, \texttt{beginObject}, and \texttt{doPeek}, including boundary conditions and nested structure handling. Collectively, they are responsible for killing a substantial number of mutants, particularly those involving conditionals, arithmetic operations, and control-flow decisions.
+
+After removal, the number of surviving mutants increased from 132 to 148, confirming that these tests were actively contributing to fault detection.
+
+\subsubsection{Targeted Test Additions}
+
+Three new tests were introduced to target previously surviving mutants:
+
+\paragraph{testConsumeNonExecutePrefixBoundary}
+This test targets boundary conditions in buffer handling logic, specifically prefix consumption near buffer limits. It is designed to kill mutants introduced by \texttt{ConditionalsBoundaryMutator}.
+
+\paragraph{testNextDoubleBufferPosition}
+This test focuses on numeric parsing and buffer positioning, strengthening assertions around floating-point parsing and targeting arithmetic and increment-related mutants.
+
+\paragraph{testLenientArraySemicolonSeparator}
+This test targets leniency checks in parsing logic, specifically verifying correct handling of semicolon-separated arrays. It addresses mutants introduced by removing calls to \texttt{checkLenient()}.
+
+\subsubsection{Mutant Transitions Across Configurations}
+
+The following mutants were observed to transition from \textbf{SURVIVED} in the baseline to \textbf{KILLED} after test additions:
+
+\begin{itemize}
+\item \texttt{JsonReader.java:1372} -- \texttt{close()}, VoidMethodCallMutator (removed \texttt{Reader.close()})
+\item \texttt{JsonReader.java:1504} -- \texttt{fillBuffer()}, ConditionalsBoundaryMutator
+\item \texttt{JsonReader.java:1507} -- \texttt{fillBuffer()}, IncrementsMutator
+\item \texttt{JsonReader.java:594} -- \texttt{doPeek()}, VoidMethodCallMutator (removed \texttt{checkLenient()})
+\item \texttt{JsonReader.java:610} -- \texttt{doPeek()}, VoidMethodCallMutator (removed \texttt{checkLenient()})
+\end{itemize}
+
+These changes confirm that the added tests successfully targeted previously undetected behavioral differences.
+
+\subsubsection{Analysis}
+
+\paragraph{S1. Effect of Test Removal}
+
+Removing the five selected tests did not produce a decrease in mutation score, which remained at 84\%, despite an increase in surviving mutants. This indicates that the removed tests were not uniquely responsible for killing mutants. Instead, other tests in the suite provided overlapping coverage, demonstrating redundancy.
+
+\paragraph{S2. Monotonicity of Mutation Score}
+
+The mutation score in this experiment is not strictly monotonic. Adding tests did not increase the score, even though additional mutants were killed. This occurs because changes in total mutant counts and coverage distribution can offset improvements, masking localized gains.
+
+\paragraph{S3. Test Suite Redundancy and Uniqueness}
+
+The results reveal a high degree of redundancy in the test suite, with multiple tests covering similar logic and killing the same mutants. However, the added tests demonstrate targeted effectiveness by killing specific surviving mutants, particularly in boundary conditions, buffer handling, and leniency logic. This indicates that while the suite is broadly strong, certain edge cases were previously under-tested.
+
+\subsubsection{Conclusion}
+
+The mutation score alone does not fully capture improvements in test quality. While it remained constant at 84\%, the underlying mutant transitions show that targeted test additions improved fault detection. This experiment highlights both the robustness provided by redundant tests and the importance of targeted tests for addressing specific weaknesses.
+
 \appendix
 \section{PIT Configuration Excerpt}
 \begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
