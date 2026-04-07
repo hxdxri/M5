@@ -431,6 +431,18 @@ The targeted interventions killed the two selected non-equivalent survivors and 
 \paragraph{PIT report excerpt.}
 In the follow-up PIT run, the HTML/XML report records line 1334 as killed by \texttt{testNextIntFromSingleQuotedString} and line 1372 as killed by \texttt{testCloseClosesUnderlyingReader}. The equivalent Mutant C remains surviving because no valid test input can produce a reachable \texttt{limit == 0} state at the mutation site.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/PIT-excerpt(line1334).png}
+\caption{PIT HTML report showing Mutant A (line 1334) killed by \texttt{testNextIntFromSingleQuotedString}.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/PIT-excerpt(line1372).png}
+\caption{PIT HTML report showing Mutant B (line 1372) killed by \texttt{testCloseClosesUnderlyingReader}.}
+\end{figure}
+
 \subsection{Experiment 4: Mutation Operator Effectiveness}
 
 \subsubsection{Operator Kill Rate Ranking}
