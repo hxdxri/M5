@@ -5,6 +5,9 @@ artifacts/pit/history/
 report/main.aux
 report/main.log
 report/main.out
+report/main.fls
+report/main.synctex.gz
+report/main.fdb_latexmk
 report/Makefile
 
 
