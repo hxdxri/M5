@@ -13,12 +13,12 @@ AI Usage:
 
 3. Samuel Olukuewu (nds091)
 Contribution: 20%
+AI Usage: Ai was used to summarise experiment requirements and sumarising mutation.xml data to identifie crucial test methods.
 
 
 4. Haidari Alhaidari (vrl968)
 Contribution: 20%
-
-
+AI Usage: 
 
 5. Ademola Obaleye (zyq049)
 Contribution: 20%
