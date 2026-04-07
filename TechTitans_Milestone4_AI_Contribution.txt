@@ -19,7 +19,7 @@ AI Usage: Ai was used to summarise experiment requirements and sumarising mutati
 
 4. Haidari Alhaidari (vrl968)
 Contribution: 20%
-AI Usage: 
+AI Usage: for report making. decided scope myself since i worked with that code in M4.also used AI for understanding pit and mvn testing. 
 
 5. Ademola Obaleye (zyq049)
 Contribution: 20%
