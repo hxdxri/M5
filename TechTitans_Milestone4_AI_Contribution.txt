@@ -5,6 +5,7 @@ Team Members and Contributions:
 
 1. Chut Giet (rjb863)
 Contribution: 20%
+AI Usage: I used AI to better understand the tools and the mutation testing concepts and codebases. I used it to guide myself when running the tools and polishing documentation.
 
 2. Chibuikem Emeka-Nwuba (esq498)
 Contribution: 20%
