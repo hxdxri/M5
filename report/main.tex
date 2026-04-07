@@ -21,26 +21,24 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.6em}
 
-\title{Tech Titans\\Milestone 5 Report\\Incremental Draft: Experiments 1--3}
 \author{CMPT 470/816\\Assigned Repository: Gson}
 \date{March 30, 2026}
 
 \begin{document}
 \maketitle
 
-\textbf{Draft scope.} This report revision documents Milestone 5 Experiments 1, 2, and 3 using recorded local runs. Experiments 4--5 will be added in later revisions; no placeholder results are claimed here.
 
 \section{Introduction}
 Mutation testing measures whether a test suite can detect seeded faults rather than merely execute the corresponding lines. For Milestone 5, our goal is to use PIT on Gson to assess the quality of tests around a coherent parsing and streaming subsystem, document the setup process, and establish a reproducible baseline before deeper surviving-mutant analysis in later experiments.
 
-This draft focuses on three questions. First, can PIT be configured reproducibly on Gson with a justified and non-trivial target scope? Second, once that scope is fixed, what does the first full mutation baseline reveal about the current test suite? Third, can targeted test additions kill selected surviving mutants and measurably improve the baseline score? The emphasis in this revision is therefore on configuration, scope calibration, accurate baseline reporting, and focused surviving-mutant analysis.
+This milestone focuses on three questions. First, can PIT be configured reproducibly on Gson with a justified and non-trivial target scope? Second, once that scope is fixed, what does the first full mutation baseline reveal about the current test suite? Third, can targeted test additions kill selected surviving mutants and measurably improve the baseline score? The emphasis in this revision is therefore on configuration, scope calibration, accurate baseline reporting, and focused surviving-mutant analysis.
 
 \section{Background}
 Mutation testing works by generating small source-level or bytecode-level changes, running the existing tests, and classifying each mutant as killed, survived, not covered, or timed out. Unlike line coverage, mutation results say something about the strength of the assertions and the sensitivity of the tests to behavior changes. A project can execute nearly all lines in a subsystem and still allow important mutants to survive.
 
 PIT is a practical Java mutation testing tool because it performs coverage analysis first and only runs tests relevant to each mutant. It also produces HTML and XML reports that expose both high-level project metrics and per-mutant details. This matters for Gson because the selected scope contains both deeply stateful parsing code and smaller adapter or bridge classes. Those classes are all part of one feature area, but they differ substantially in how much mutatable logic they contain.
 
-Equivalent mutants remain a known limitation. A mutant can survive either because tests are weak or because the mutated program is behaviorally indistinguishable from the original. Distinguishing those cases is part of later milestone work, but even in Experiments 1--3 it is important to avoid over-interpreting raw survival counts.
+Equivalent mutants remain a known limitation. A mutant can survive either because tests are weak or because the mutated program is behaviorally indistinguishable from the original. 
 
 \section{Experimental Setup}
 \subsection{Dataset Declaration}
@@ -110,7 +108,7 @@ The PIT configuration is defined in the Maven profile \texttt{milestone5-pit}. A
 \subsection{Pre-run Validation and Setup Challenges}
 We first validated that the selected module had a green test suite before any mutation run. The Docker-based verification run completed successfully with 4,586 tests executed, 0 failures, 0 errors, and 19 skipped tests in 38.081 seconds. This satisfied the milestone requirement to confirm a passing suite before PIT.
 
-To verify the PIT configuration itself, we then performed a smoke run on the original streaming slice, namely \texttt{com.google.gson.stream.*} together with \texttt{com.google.gson.JsonStreamParser}. This was intentionally used as a calibration step because it is the narrowest coherent subset of the final scope and exercises the same parser/streaming behavior. The smoke run produced a valid HTML report, generated 687 mutants, and completed in 55 seconds of PIT time (1 minute 10 seconds wall-clock through Maven), which is in the assignment's marginal range and therefore suggested that the scope could be widened further.
+To verify the PIT configuration itself, we then performed a smoke run on the original streaming slice, namely \texttt{com.google.gson.stream.*} together with \texttt{com.google.gson.JsonStreamParser}. This was intentionally used as a calibration step because it is the narrowest coherent subset of the final scope and exercises the same parser/streaming behavior. The smoke run produced a valid HTML report, generated 687 mutants, and completed in 55 seconds of PIT time (1 minute 10 seconds wall-clock through Maven), which is in the marginal range and therefore suggested that the scope could be widened further.
 
 \begin{figure}[H]
 \centering
@@ -160,13 +158,13 @@ After calibration, the final expanded scope produced a substantially stronger ba
 \toprule
 Project & LOC & Tests & Mutants & Killed & Surv. & No Cov. & Mut. Score & Test Str. \\
 \midrule
-Gson selected scope & 4201 & 4586 & 945 & 786 & 132 & 18 & 85.6\% & 86\% \\
+Gson selected scope & 4201 & 4586 & 945 & 795 & 132 & 18 & 84\% & 86\% \\
 \bottomrule
 \end{tabular}
 \caption{Milestone 5 summary table for the full Experiment 2 baseline. Timed-out mutants: 9; line coverage: 96\%; runtime: 4 minutes 9 seconds wall-clock.}
 \end{table}
 
-The final baseline generated 945 mutants and killed 786 of them, with 132 surviving, 18 not covered, and 9 timing out. Using the milestone formula, the mutation score is therefore $786 / (786 + 132) = 85.6\%$. PIT's HTML summary also reports 84\% mutation coverage and 86\% test strength. The difference is expected: PIT's top-line mutation coverage counts timed-out mutants as detected and normalizes differently from the milestone's explicit mutation-score formula.
+The final baseline generated 945 mutants and killed 795 of them, with 132 surviving, 18 not covered, and 9 timing out.The mutation score is therefore $795 / (795 + 132) = 84\%$. PIT's HTML summary also reports 84\% mutation coverage and 86\% test strength. The difference is expected: PIT's top-line mutation coverage counts timed-out mutants as detected and normalizes differently from the milestone's explicit mutation-score formula.
 
 Line coverage remained high at 1,309/1,361 mutated-class lines (96\%), and the runtime increased to 4 minutes 9 seconds wall-clock, which places the final selected scope squarely in the assignment's preferred execution range. PIT executed 14,461 relevant test invocations during mutation analysis, while the green-suite validation established that the total test suite in scope contains 4,586 test cases.
 
@@ -258,7 +256,7 @@ reader.beginArray();
 int value = reader.nextInt();
 \end{lstlisting}
 
-With the original code, \texttt{nextQuotedValue('\\'')} reads the characters between the single quotes and returns \texttt{123}. With the mutant, \texttt{nextQuotedValue('"')} searches for a closing double quote instead of a single quote, so parsing fails or produces the wrong value. The observable behavior changes from returning \texttt{123} to throwing a parse/number-format failure.
+With the original code, \texttt{nextQuotedValue('"')} reads the characters between the single quotes and returns \texttt{123}. With the mutant, \texttt{nextQuotedValue('"')} searches for a closing double quote instead of a single quote, so parsing fails or produces the wrong value. The observable behavior changes from returning \texttt{123} to throwing a parse/number-format failure.
 
 \paragraph{M3. Killability verdict.}
 This mutant is \textbf{killable -- missing test}. No test reaches the single-quoted lenient path. The added test is:
@@ -419,14 +417,14 @@ Verdict & \textbf{Likely equivalent} \\
 \toprule
 Configuration & Mutants & Killed & Survived & Mutation Score \\
 \midrule
-Experiment 2 baseline & 945 & 786 & 132 & 85.6\% \\
-After Experiment 3 tests & 957 & 804 & 130 & 86.1\% \\
+Experiment 2 baseline & 945 & 795 & 132 & 84\% \\
+After Experiment 3 tests & 957 & 809 & 130 & 85\% \\
 \bottomrule
 \end{tabular}
 \caption{Score impact after Experiment 3 targeted test additions. Mutation score is computed as killed / (killed + survived).}
 \end{table}
 
-The targeted interventions killed the two selected non-equivalent survivors and improved the milestone-formula mutation score from 85.6\% to 86.1\%. The total generated mutant count changed from 945 to 957 across runs, which is expected because PIT regenerates mutants per run and test changes can alter coverage and mutant reachability.
+The targeted interventions killed the two selected non-equivalent survivors and improved the milestone-formula mutation score from 84\% to 85\%. The total generated mutant count changed from 945 to 957 across runs, which is expected because PIT regenerates mutants per run and test changes can alter coverage and mutant reachability.
 
 \paragraph{PIT report excerpt.}
 In the follow-up PIT run, the HTML/XML report records line 1334 as killed by \texttt{testNextIntFromSingleQuotedString} and line 1372 as killed by \texttt{testCloseClosesUnderlyingReader}. The equivalent Mutant C remains surviving because no valid test input can produce a reachable \texttt{limit == 0} state at the mutation site.
@@ -534,7 +532,7 @@ This mutant survived because \texttt{beginObject()} returns the writer object to
 
 Running all default operators generated 945 mutants and took about 4 minutes and 9 seconds. That is a reasonable runtime for this scope. That said, just 5 operators produced over 83\% of all mutants, and the operators that hit 100\% kill rates did not reveal anything new to fix.
 
-The most useful operators were the weakest ones. \texttt{ConditionalsBoundaryMutator} and \texttt{NullReturnValsMutator} pointed to real gaps that are still worth addressing, as seen in the modest score improvement from 85.6\% to 86.1\% after Experiment 3.
+The most useful operators were the weakest ones. \texttt{ConditionalsBoundaryMutator} and \texttt{NullReturnValsMutator} pointed to real gaps that are still worth addressing, as seen in the modest score improvement from 84\% to 85\% after Experiment 3.
 
 Selective mutation testing makes more sense when the project is large and runtimes exceed 30 minutes, when the goal is finding and fixing test gaps rather than just measuring coverage, or when re-running PIT after changes where some operators are already at 100\%. For this project the runtime was short enough that running everything made sense, but on a larger codebase focusing on the weakest operators would save time while still finding the most important issues.
 
@@ -616,10 +614,6 @@ The mutation score in this experiment is not strictly monotonic. Adding tests di
 
 The results reveal a high degree of redundancy in the test suite, with multiple tests covering similar logic and killing the same mutants. However, the added tests demonstrate targeted effectiveness by killing specific surviving mutants, particularly in boundary conditions, buffer handling, and leniency logic. This indicates that while the suite is broadly strong, certain edge cases were previously under-tested.
 
-\subsubsection{Conclusion}
-
-The mutation score alone does not fully capture improvements in test quality. While it remained constant at 84\%, the underlying mutant transitions show that targeted test additions improved fault detection. This experiment highlights both the robustness provided by redundant tests and the importance of targeted tests for addressing specific weaknesses.
-
 \section{Discussion}
 The full baseline largely confirmed the pre-run hypothesis. The selected Gson subsystem has very high line coverage and a strong overall mutation score, which indicates that the existing test suite is not merely executing code but is detecting many seeded faults. That is especially clear in the streaming layer, where \texttt{JsonReader} and \texttt{JsonWriter} account for most mutants and are still tested strongly.
 
@@ -627,15 +621,16 @@ At the same time, the calibration step mattered. The original streaming-only sel
 
 The results also show why mutation testing gives a different picture from coverage alone. Even with 96\% mutated-class line coverage, 132 mutants survived in the Experiment 2 baseline. Experiment 3 then demonstrated that some of these survivors were killable with targeted tests that strengthened specific behavioral assertions. At the same time, the likely-equivalent \texttt{fillBuffer} mutant illustrates that not all surviving mutants indicate weak tests.
 
-Together, Experiments 2 and 3 provide a clearer quality signal: the suite is already strong at subsystem level, still has actionable assertion gaps in edge-case semantics, and includes a smaller set of survivors that are better interpreted as likely equivalent rather than missing-test defects.
+Together, Experiments 2 and 3 provide a clearer quality signal: the suite is already strong at subsystem level, still has actionable assertion gaps in edge-case semantics, and includes a smaller set of survivors that are better interpreted as likely equivalent rather than missing-test defects. Experiment 4 added to this by showing that some operators were much more useful than others. ConditionalsBoundaryMutator and NullReturnValsMutator had the weakest kill rates and pointed to gaps that line coverage alone would have missed. Experiment 5 shows some of the redundanct in the test suite as though the majority tests responsible for mutations were removed the overall mutation score did not change.
 
 \section{Lessons Learned}
-Four lessons are clear from Experiments 1--3. First, scope selection must be guided by mutatable logic rather than raw source lines alone. Second, a subsystem-focused scope can stay small enough to run repeatedly while still generating nearly a thousand mutants if the selected classes actually contain branching behavior. Third, high coverage by itself can overstate adequacy; surviving mutants expose behavior not yet strongly asserted. Fourth, surviving-mutant triage is essential: targeted tests can eliminate real weaknesses, while explicit equivalent-mutant analysis avoids misclassifying unreachable semantic differences as test defects.
+First, scope selection must be guided by mutatable logic rather than raw source lines alone. Second, a subsystem-focused scope can stay small enough to run repeatedly while still generating nearly a thousand mutants if the selected classes actually contain branching behavior. Third, high coverage by itself can overstate adequacy; surviving mutants expose behavior not yet strongly asserted. Fourth, surviving-mutant triage is essential: targeted tests can eliminate real weaknesses, while explicit equivalent-mutant analysis avoids misclassifying unreachable semantic differences as test defects.
 
 \section{Conclusion}
-For this selected Gson subsystem, PIT setup was reproducible and produced a useful mutation-testing workflow across three experiments. The Experiment 2 baseline yielded 945 mutants with an 85.6\% mutation score by the milestone formula, 86\% PIT test strength, 96\% line coverage, and a 4:09 wall-clock runtime. Experiment 3 then added two targeted tests that killed selected surviving mutants and improved the mutation score to 86.1\% (804 killed, 130 survived, out of 957 generated mutants in the rerun).
+For this selected Gson subsystem, PIT setup was reproducible and produced a useful mutation-testing workflow across three experiments. The Experiment 2 baseline yielded 945 mutants with an 84\% mutation score by the milestone formula, 86\% PIT test strength, 96\% line coverage, and a 4:09 wall-clock runtime. Experiment 3 then added two targeted tests that killed selected surviving mutants and improved the mutation score to 85\% (809 killed, 130 survived, out of 957 generated mutants in the rerun).
 
-These results show that mutation testing is practical and informative for a production Java project when the scope is chosen as a coherent feature slice with meaningful logic and a runtime in the low-minute range. The next report revisions will build on this foundation with Experiment 4 and Experiment 5 analyses using the same repository and target scope.
+These results show that mutation testing is practical and informative for a production Java project when the scope is chosen as a coherent feature slice with meaningful logic and a runtime in the low-minute range. Experiment 4 showed that some operators were much more useful than others. ConditionalsBoundaryMutator at 60.4% and NullReturnValsMutator at 68.4% had the weakest kill rates and pointed directly to test gaps that line coverage would have missed.The mutation score alone does not fully capture improvements in test quality. While it remained constant at 84\%, the underlying mutant transitions show that targeted test additions improved fault detection. This experiment highlights both the robustness provided by redundant tests and the importance of targeted tests for addressing specific weaknesses.
+
 
 \appendix
 \section{PIT Configuration Excerpt}
