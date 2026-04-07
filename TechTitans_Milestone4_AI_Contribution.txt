@@ -22,4 +22,4 @@ AI Usage:
 
 5. Ademola Obaleye (zyq049)
 Contribution: 20%
-AI Usage: i used AI to clarify mutation testing concepts, help debug setup issues (Java, Maven, PIT), and guide understanding of surviving mutants. All experiments, results, and code were completed independently.AI was used to clarify mutation testing concepts, help debug setup issues (Java, Maven, PIT), and guide understanding of surviving mutants. All experiments, results, and code were completed independently.
+AI Usage: i used AI to clarify mutation testing concepts, help debug setup issues (Java, Maven, PIT), and guide understanding of surviving mutants. All experiments, results, and code were completed independently.
